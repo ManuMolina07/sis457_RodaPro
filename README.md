@@ -13,56 +13,141 @@ El negocio realiza la venta de estos productos a diferentes clientes, por lo que
 sistema que permita organizar y controlar la información relacionada con los productos, clientes y ventas. La aplicación 
 permitirá gestionar de manera más ordenada los productos disponibles y registrar las ventas realizadas en el negocio.
 
-Entidades y campos tentativos
+Entidades y campos del proyecto de la Base de Datos
 
-Producto
+##Producto
 
 - IdProducto
+- IdCategoria
+- IdUnidadMedida
+- Codigo
 - Nombre
-- Descripción
+- Descripcion
 - Marca
-- Precio
+- PrecioCompra
+- PrecioVenta
 - Stock
+- StockMinimo
 - Estado
 
-Categoría
+##Categoria
 
 - IdCategoria
 - Nombre
-- Descripción
+- Descripcion
 - Estado
 
-Cliente
+##UnidadMedida
+
+- IdUnidadMedida
+- Nombre
+- Abreviatura
+- Descripcion
+- Estado
+
+##Cliente
 
 - IdCliente
 - Nombre
 - Apellido
-- CI
-- Teléfono
-- Dirección
+- CiNit
+- Telefono
+- Direccion
 - Estado
 
-Venta
+##Proveedor
 
-- IdVenta
+- IdProveedor
+- NombreEmpresa
+- Nit
+- Telefono
+- Direccion
+- Email
+- Estado
+
+##Usuario
+
+- IdUsuario
+- NombreCompleto
+- NombreUsuario
+- PasswordHash
+- Rol
+- Estado
+
+##Empleado
+
+- IdEmpleado
+- Usuario
+- Clave
+- UsuarioRegistro
+- FechaRegistro
+- Estado
+
+##Compra
+
+- IdCompra
+- IdProveedor
+- IdUsuario
 - Fecha
-- IdCliente
+- NumeroDocumento
+- TipoDocumento
+- Subtotal
+- Descuento
 - Total
 - Estado
 
-DetalleVenta
+##CompraDetalle
+
+- IdDetalleCompra
+- IdCompra
+- IdProducto
+- Cantidad
+- CostoUnitario
+- Descuento
+- Subtotal
+
+##Venta
+
+- IdVenta
+- IdCliente
+- IdUsuario
+- Fecha
+- NumeroDocumento
+- TipoDocumento
+- Subtotal
+- Descuento
+- Total
+- Estado
+
+##VentaDetalle
 
 - IdDetalleVenta
 - IdVenta
 - IdProducto
 - Cantidad
 - PrecioUnitario
+- Descuento
 - Subtotal
 
-Usuario
+##Pago
 
+- IdPago
+- IdVenta
+- IdCompra
 - IdUsuario
-- NombreUsuario
-- Contraseña
-- Rol
-- Estado
+- Fecha
+- Monto
+- MetodoPago
+- Referencia
+
+##MovimientoInventario
+
+- IdMovimiento
+- IdProducto
+- IdUsuario
+- Fecha
+- TipoMovimiento
+- Cantidad
+- ReferenciaTipo
+- ReferenciaId
+- Observacion
