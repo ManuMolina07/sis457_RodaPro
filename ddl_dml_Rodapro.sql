@@ -253,6 +253,7 @@ ALTER TABLE MovimientoInventario ADD fechaRegistro DATETIME NOT NULL DEFAULT GET
 ALTER TABLE MovimientoInventario ADD estado SMALLINT NOT NULL DEFAULT 1; -- -1: Eliminado, 0: Inactivo, 1: Activo
 
 GO
+--Productos
 GO
 DROP PROC IF EXISTS paProductoListar;
 GO
@@ -285,9 +286,121 @@ AS
     ORDER BY p.nombre;
 GO
 
-EXEC paProductoListar 'chumacera';
+EXEC paProductoListar ' ';
 GO
+--Proveedores
+DROP PROC IF EXISTS paProveedorListar;
+GO
+
+CREATE PROC paProveedorListar @parametro VARCHAR(50)
+AS
+    SELECT
+        p.id,
+        p.nombreEmpresa,
+        p.nit,
+        p.telefono,
+        p.direccion,
+        p.email,
+        p.usuarioRegistro,
+        p.fechaRegistro,
+        p.estado
+    FROM Proveedor p
+    WHERE p.estado = 1
+    AND (
+        p.nombreEmpresa +
+        p.nit +
+        ISNULL(p.telefono, '') +
+        ISNULL(p.direccion, '') +
+        ISNULL(p.email, '')
+    ) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+    ORDER BY p.nombreEmpresa;
+GO
+
+EXEC paProveedorListar '';
+GO
+
+--Compra--
+
+USE LabRodapro
+GO
+
+ALTER PROCEDURE paCompraListar
+    @parametro VARCHAR(100)
+AS
+BEGIN
+    SELECT
+        c.id,
+        c.idProveedor,
+        c.idUsuario,
+        c.fecha,
+        c.numeroDocumento,
+        c.tipoDocumento,
+        p.nombreEmpresa AS proveedor,
+        c.usuarioRegistro,
+        c.subtotal,
+        c.descuento,
+        c.total
+    FROM Compra c
+    INNER JOIN Proveedor p ON p.id = c.idProveedor
+    WHERE c.estado = 1
+      AND (
+            CAST(c.id AS VARCHAR(20)) LIKE '%' + @parametro + '%'
+            OR c.numeroDocumento LIKE '%' + @parametro + '%'
+            OR p.nombreEmpresa LIKE '%' + @parametro + '%'
+          )
+    ORDER BY c.id DESC
+END
+GO
+
+EXEC paCompraListar ''
 --DML--
+
+--Empleado--
+
+INSERT INTO Empleado
+(
+    cedulaIdentidad,
+    nombres,
+    primerApellido,
+    segundoApellido,
+    fechaNacimiento,
+    direccion,
+    celular,
+    cargo
+)
+VALUES
+(
+    '10329801',
+    'Gabriel',
+    'Tarqui',
+    'Aguilar',
+    '1993-04-13',
+    'Av. Circunvalación, Sucre',
+    75776595,
+    'Administrador'
+);
+
+SELECT SCOPE_IDENTITY() AS idEmpleado;
+
+-------------
+DECLARE @idEmpleado INT = SCOPE_IDENTITY();
+
+INSERT INTO Usuario
+(
+    idEmpleado,
+    usuario,
+    passwordHash,
+    rol
+)
+VALUES
+(
+    @idEmpleado,
+    'admin',
+    'AQUI_VA_EL_HASH_CORRECTO',
+    'ADMIN'
+);
+
+------------
 
 INSERT INTO UnidadMedida (descripcion)
 VALUES ('Unidad'),    --1
@@ -315,6 +428,281 @@ VALUES
 (5, 1, 'RET001', 'Retén 35x52x7', 'Retén de aceite', 'Genérica', 8, 15, 30, 5),
 (6, 1, 'DES001', 'Descanso para eje', 'Soporte para eje rotativo', 'Genérica', 50, 70, 6, 2);
 
+INSERT INTO Proveedor
+(nombreEmpresa, nit, telefono, direccion, email)
+VALUES
+('Importadora SKF Bolivia', '1020304501', '70123456', 'Av. 6 de Marzo, El Alto', 'ventas@skfbolivia.com'),
+('Rodamientos Industriales SRL', '1020304502', '71234567', 'Av. Buenos Aires, La Paz', 'contacto@rodamientos.com'),
+('Repuestos Mecánicos Andina', '1020304503', '72345678', 'Zona Villa Fátima, La Paz', 'ventas@andina.com'),
+('Importadora Universal', '1020304504', '73456789', 'Av. Blanco Galindo, Cochabamba', 'info@universal.com'),
+('Distribuidora Industrial del Sur', '1020304505', '74567890', 'Av. Petrolera, Santa Cruz', 'ventas@industrialdelsur.com'),
+('Suministros Mecánicos Bolivia', '1020304506', '75678901', 'Av. América, Cochabamba', 'contacto@suministros.com');
+GO
+
 SELECT * FROM UnidadMedida;
 SELECT * FROM Categoria;
 SELECT * FROM Producto;
+SELECT * FROM Proveedor;
+
+SELECT id, idEmpleado, usuario, passwordHash, rol
+FROM Usuario;
+
+SELECT * FROM Empleado;
+DELETE FROM Empleado
+WHERE id = 3;
+
+SELECT
+    u.id,
+    e.nombres,
+    u.usuario,
+    u.passwordHash,
+    u.rol
+FROM Usuario u
+INNER JOIN Empleado e ON e.id = u.idEmpleado;
+
+USE LabRodapro;
+GO
+
+SELECT id, cedulaIdentidad, nombres, primerApellido, estado
+FROM Empleado;
+
+USE LabRodapro;
+GO
+
+
+--Comprobar registro----
+
+SELECT id, idEmpleado, usuario, passwordHash, rol
+FROM Usuario;
+
+--Eliminar registro duplicado--
+
+USE LabRodapro;
+GO
+
+DELETE FROM Usuario
+WHERE id = 2
+AND usuario = 'admin'
+AND passwordHash = 'admin123';
+GO
+
+---------------------------
+
+SELECT 
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS Longitud
+FROM Usuario
+WHERE usuario = 'admin';
+
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Usuario'
+AND COLUMN_NAME = 'passwordHash';
+
+SELECT 
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS Longitud,
+    DATALENGTH(passwordHash) AS Bytes
+FROM Usuario
+WHERE usuario = 'admin';
+
+USE LabRodapro;
+GO
+
+SELECT
+    id,
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS longitud,
+    estado
+FROM Usuario;
+
+
+SELECT usuario, passwordHash, estado
+FROM Usuario
+WHERE usuario = 'admin';
+
+
+--
+
+USE LabRodapro;
+GO
+
+SELECT
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS longitud,
+    estado
+FROM Usuario
+WHERE usuario = 'admin';
+
+SELECT
+    usuario,
+    LEN(passwordHash) AS longitud,
+    DATALENGTH(passwordHash) AS bytes,
+    estado
+FROM Usuario
+WHERE usuario = 'admin';
+
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Usuario';
+
+USE LabRodapro
+GO
+
+SELECT *
+FROM Usuario
+WHERE usuario = 'admin'
+GO
+
+USE LabRodapro;
+GO
+
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Usuario';
+GO
+
+---
+
+USE LabRodapro;
+GO
+
+UPDATE Usuario
+SET passwordHash = 'hSJTivwrouOauu/yywIFmLs43BBxFF8bueo8Lls33Qtc='
+WHERE usuario = 'admin';
+GO
+
+
+SELECT
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS Longitud
+FROM Usuario
+WHERE usuario = 'admin';
+GO
+
+
+SELECT
+    usuario,
+    '[' + passwordHash + ']' AS HashVisible,
+    LEN(passwordHash) AS Longitud,
+    DATALENGTH(passwordHash) AS BytesAlmacenados,
+    UNICODE(RIGHT(passwordHash, 1)) AS CodigoUltimoCaracter
+FROM Usuario
+WHERE usuario = 'admin';
+
+
+SELECT
+    passwordHash,
+    LEN(passwordHash) AS Longitud,
+    DATALENGTH(passwordHash) AS Bytes,
+    ASCII(SUBSTRING(passwordHash, 44, 1)) AS Caracter44,
+    ASCII(SUBSTRING(passwordHash, 45, 1)) AS Caracter45
+FROM Usuario
+WHERE usuario = 'admin';
+
+
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Usuario'
+AND COLUMN_NAME = 'passwordHash';
+
+
+---
+USE LabRodapro;
+GO
+
+SELECT
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS Longitud,
+    DATALENGTH(passwordHash) AS Bytes
+FROM Usuario
+WHERE usuario = 'admin';
+
+USE LabRodapro;
+GO
+
+SELECT
+    passwordHash,
+    SUBSTRING(passwordHash, 1, 10) AS Primeros10,
+    SUBSTRING(passwordHash, 2, 1) AS CaracterPosicion2,
+    ASCII(SUBSTRING(passwordHash, 2, 1)) AS CodigoPosicion2,
+    LEN(passwordHash) AS Longitud
+FROM Usuario
+WHERE usuario = 'admin';
+
+
+USE LabRodapro;
+GO
+
+UPDATE Usuario
+SET passwordHash = 'hSJTivwrouOauu/yywIFmLs43BBxFF8bueo8Lls33Qtc='
+WHERE usuario = 'admin';
+GO
+
+SELECT
+    usuario,
+    passwordHash,
+    LEN(passwordHash) AS Longitud,
+    estado
+FROM Usuario
+WHERE usuario = 'admin';
+
+
+USE LabRodapro;
+GO
+
+SELECT
+    '[' + passwordHash + ']' AS HashCompleto,
+    LEN(passwordHash) AS LongitudLEN,
+    DATALENGTH(passwordHash) AS LongitudBytes,
+    ASCII(SUBSTRING(passwordHash, 2, 1)) AS CodigoPosicion2,
+    ASCII(RIGHT(passwordHash, 1)) AS UltimoCaracter
+FROM Usuario
+WHERE usuario = 'admin';
+
+USE LabRodapro;
+GO
+
+DELETE FROM Usuario
+WHERE usuario = 'admin';
+GO
+
+USE LabRodapro;
+GO
+SELECT id, nombres
+FROM Empleado;
+
+
+USE LabRodapro;
+GO
+
+DELETE FROM Usuario
+WHERE usuario = 'admin';
+GO
+
+USE LabRodapro;
+GO
+
+SELECT DB_NAME() AS BaseDeDatosActual;
+
+SELECT name
+FROM sys.procedures
+WHERE name = 'paCompraListar';
+GO

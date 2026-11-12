@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8fb5609f6f8249f5a3fb5d9bb330797d" Name="Diagram1">
+        <EntityTypeShape EntityType="LabRodaproModel.Categoria" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Cliente" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Compra" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.CompraDetalle" Width="1.5" PointX="10.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Empleado" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.MovimientoInventario" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Pago" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Producto" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Proveedor" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.UnidadMedida" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Usuario" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.Venta" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRodaproModel.VentaDetalle" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="LabRodaproModel.fk_Producto_Categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Venta_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Compra_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Compra_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_CompraDetalle_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Pago_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_CompraDetalle_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Usuario_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_MovimientoInventario_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_MovimientoInventario_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Pago_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Pago_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Producto_UnidadMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_VentaDetalle_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_Venta_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRodaproModel.fk_VentaDetalle_Venta" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
