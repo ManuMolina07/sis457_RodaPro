@@ -1,0 +1,15 @@
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\ClnRodapro.dll.config
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\ClnRodapro.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\ClnRodapro.pdb
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\CadRodapro.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\EntityFramework.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\EntityFramework.SqlServer.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\CadRodapro.pdb
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\CadRodapro.dll.config
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\EntityFramework.xml
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Debug\EntityFramework.SqlServer.xml
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Debug\ClnRodapro.csproj.AssemblyReference.cache
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Debug\ClnRodapro.csproj.CoreCompileInputs.cache
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Debug\ClnRodapro.csproj.Up2Date
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Debug\ClnRodapro.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Debug\ClnRodapro.pdb

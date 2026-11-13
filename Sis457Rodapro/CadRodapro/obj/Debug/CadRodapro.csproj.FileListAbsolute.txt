@@ -1,0 +1,12 @@
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\CadRodapro.dll.config
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\CadRodapro.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\CadRodapro.pdb
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\EntityFramework.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\EntityFramework.SqlServer.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\EntityFramework.xml
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\bin\Debug\EntityFramework.SqlServer.xml
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\obj\Debug\CadRodapro.csproj.AssemblyReference.cache
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\obj\Debug\CadRodapro.csproj.CoreCompileInputs.cache
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\obj\Debug\CadRodapro.csproj.Up2Date
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\obj\Debug\CadRodapro.dll
+D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CadRodapro\obj\Debug\CadRodapro.pdb

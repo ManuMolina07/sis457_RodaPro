@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="CadRodapro/CadRodapro.csproj" />
-  <Project Path="ClnRodapro/ClnRodapro.csproj" />
-  <Project Path="CpRodapro/CpRodapro.csproj" />
+  <Project Path="CadRodapro/CadRodapro.csproj" Id="4f00aef4-42bf-437b-ac4d-9063354c7d21" />
+  <Project Path="ClnRodapro/ClnRodapro.csproj" Id="13c8fc23-28ae-4820-bcb8-6bdcc755d2d7" />
+  <Project Path="CpRodapro/CpRodapro.csproj" Id="e99e148c-01b5-429e-bd57-ee0d2d6fc373" />
 </Solution>
