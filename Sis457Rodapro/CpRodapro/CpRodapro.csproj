@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81C15AA2-5149-4010-8804-BB4ADCB63C69}</ProjectGuid>
+    <ProjectGuid>{E99E148C-01B5-429E-BD57-EE0D2D6FC373}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CpRodapro</RootNamespace>
     <AssemblyName>CpRodapro</AssemblyName>
@@ -42,9 +42,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="System">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
-    </Reference>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,8 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -68,7 +75,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -86,11 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CadRodapro\CadRodapro.csproj">
-      <Project>{35cdd4b5-a6f7-4287-98bb-39f299df6d61}</Project>
+      <Project>{4f00aef4-42bf-437b-ac4d-9063354c7d21}</Project>
       <Name>CadRodapro</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClnRodapro\ClnRodapro.csproj">
-      <Project>{1110a8f9-7c6a-4448-936e-d264a3a20629}</Project>
+      <Project>{13c8fc23-28ae-4820-bcb8-6bdcc755d2d7}</Project>
       <Name>ClnRodapro</Name>
     </ProjectReference>
   </ItemGroup>

@@ -392,7 +392,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="paCompraListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="paProductoListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="paProveedorListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="LabRodaproModelStoreContainer">
@@ -976,10 +982,29 @@
             <End Role="Venta" EntitySet="Venta" />
             <End Role="VentaDetalle" EntitySet="VentaDetalle" />
           </AssociationSet>
+          <FunctionImport Name="paCompraListar" ReturnType="Collection(LabRodaproModel.paCompraListar_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="paProductoListar" ReturnType="Collection(LabRodaproModel.paProductoListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="paProveedorListar" ReturnType="Collection(LabRodaproModel.paProveedorListar_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="paCompraListar_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="idProveedor" Nullable="false" />
+          <Property Type="Int32" Name="idUsuario" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" Precision="23" />
+          <Property Type="String" Name="numeroDocumento" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="tipoDocumento" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="proveedor" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="subtotal" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="descuento" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="total" Nullable="false" Precision="12" Scale="2" />
+        </ComplexType>
         <ComplexType Name="paProductoListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="idCategoria" Nullable="false" />
@@ -994,6 +1019,17 @@
           <Property Type="Decimal" Name="precioVenta" Nullable="false" Precision="12" Scale="2" />
           <Property Type="Decimal" Name="stock" Nullable="false" Precision="12" Scale="2" />
           <Property Type="Decimal" Name="stockMinimo" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="Int16" Name="estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="paProveedorListar_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombreEmpresa" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="nit" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="direccion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
@@ -1212,6 +1248,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="paCompraListar" FunctionName="LabRodaproModel.Store.paCompraListar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRodaproModel.paCompraListar_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="proveedor" ColumnName="proveedor" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="paProductoListar" FunctionName="LabRodaproModel.Store.paProductoListar">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LabRodaproModel.paProductoListar_Result">
@@ -1228,6 +1281,21 @@
                 <ScalarProperty Name="precioVenta" ColumnName="precioVenta" />
                 <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="stockMinimo" ColumnName="stockMinimo" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paProveedorListar" FunctionName="LabRodaproModel.Store.paProveedorListar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRodaproModel.paProveedorListar_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombreEmpresa" ColumnName="nombreEmpresa" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />

@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1110A8F9-7C6A-4448-936E-D264A3A20629}</ProjectGuid>
+    <ProjectGuid>{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ClnRodapro</RootNamespace>
@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CadRodapro\CadRodapro.csproj">
-      <Project>{35cdd4b5-a6f7-4287-98bb-39f299df6d61}</Project>
+      <Project>{4f00aef4-42bf-437b-ac4d-9063354c7d21}</Project>
       <Name>CadRodapro</Name>
     </ProjectReference>
   </ItemGroup>
