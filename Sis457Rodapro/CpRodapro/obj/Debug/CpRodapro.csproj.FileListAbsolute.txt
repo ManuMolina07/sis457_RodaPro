@@ -29,3 +29,14 @@ D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debu
 D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.csproj.Up2Date
 D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.exe
 D:\PSIS457\repositorio\1ercommit\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.pdb
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\CadRodapro.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\ClnRodapro.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\EntityFramework.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\EntityFramework.SqlServer.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\CadRodapro.pdb
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\CadRodapro.dll.config
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\ClnRodapro.pdb
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\ClnRodapro.dll.config
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\EntityFramework.xml
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\EntityFramework.SqlServer.xml
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.csproj.Up2Date
