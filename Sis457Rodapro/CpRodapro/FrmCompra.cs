@@ -12,11 +12,15 @@ namespace CpRodapro
         private bool modoEdicion = false;
         private long idCompraEdicion = 0;
 
+        // Usuario autenticado
+        public int IdUsuarioActual { get; set; }
+        public string UsuarioActual { get; set; }
+
         public FrmCompra() : this(0)
         {
         }
 
-        // Constructor para modificar una compra existente
+        // CONSTRUCTOR PARA REGISTRAR O MODIFICAR
         public FrmCompra(long idCompra)
         {
             InitializeComponent();
@@ -34,13 +38,29 @@ namespace CpRodapro
             cargarProveedores();
             cargarProductos();
 
+            // EVENTOS
+            cbxProducto.SelectedIndexChanged -=
+                cbxProducto_SelectedIndexChanged;
             cbxProducto.SelectedIndexChanged +=
                 cbxProducto_SelectedIndexChanged;
 
+            btnAgregar.Click -= btnAgregar_Click;
             btnAgregar.Click += btnAgregar_Click;
+
+            btnRegistrar.Click -= btnRegistrar_Click;
             btnRegistrar.Click += btnRegistrar_Click;
+
+            btnVolver.Click -= btnVolver_Click;
             btnVolver.Click += btnVolver_Click;
+
+            btnCancelar.Click -= btnCancelar_Click;
             btnCancelar.Click += btnCancelar_Click;
+
+            btnEliminarProducto.Click -= btnEliminarProducto_Click;
+            btnEliminarProducto.Click += btnEliminarProducto_Click;
+
+            btnVerCompras.Click -= btnVerCompras_Click;
+            btnVerCompras.Click += btnVerCompras_Click;
 
             if (idCompra > 0)
             {
@@ -94,9 +114,12 @@ namespace CpRodapro
             dgvDetalle.Columns["idProducto"].Visible = false;
 
             dgvDetalle.Columns["cantidad"].DefaultCellStyle.Format = "N2";
-            dgvDetalle.Columns["costo"].DefaultCellStyle.Format = "'Bs' #,##0.00";
-            dgvDetalle.Columns["descuento"].DefaultCellStyle.Format = "'Bs' #,##0.00";
-            dgvDetalle.Columns["subtotal"].DefaultCellStyle.Format = "'Bs' #,##0.00";
+            dgvDetalle.Columns["costo"].DefaultCellStyle.Format =
+                "'Bs' #,##0.00";
+            dgvDetalle.Columns["descuento"].DefaultCellStyle.Format =
+                "'Bs' #,##0.00";
+            dgvDetalle.Columns["subtotal"].DefaultCellStyle.Format =
+                "'Bs' #,##0.00";
         }
 
         // CARGAR PROVEEDORES
@@ -120,7 +143,10 @@ namespace CpRodapro
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al cargar proveedores: " + ex.Message
+                    "Error al cargar proveedores: " + ex.Message,
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
             }
         }
@@ -146,7 +172,10 @@ namespace CpRodapro
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al cargar productos: " + ex.Message
+                    "Error al cargar productos: " + ex.Message,
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
             }
         }
@@ -163,9 +192,11 @@ namespace CpRodapro
                     );
 
                     if (compra == null)
-                        throw new Exception("La compra no existe o está anulada.");
+                        throw new Exception(
+                            "La compra no existe o está anulada."
+                        );
 
-                    // Cargar encabezado
+                    // CARGAR ENCABEZADO
                     cbxProveedor.SelectedValue = compra.idProveedor;
 
                     dtpFecha.Value = compra.fecha;
@@ -176,9 +207,11 @@ namespace CpRodapro
                     cbxTipoDocumento.SelectedItem =
                         compra.tipoDocumento;
 
-                    // Cargar detalles
+                    // CARGAR DETALLES
                     var detalles = context.CompraDetalle
-                        .Where(x => x.idCompra == idCompra && x.estado == 1)
+                        .Where(x =>
+                            x.idCompra == idCompra &&
+                            x.estado == 1)
                         .ToList();
 
                     dgvDetalle.Rows.Clear();
@@ -193,7 +226,8 @@ namespace CpRodapro
                             continue;
 
                         decimal subtotal =
-                            detalle.cantidad * detalle.costoUnitario;
+                            detalle.cantidad *
+                            detalle.costoUnitario;
 
                         dgvDetalle.Rows.Add(
                             detalle.idProducto,
@@ -221,7 +255,7 @@ namespace CpRodapro
             }
         }
 
-        // CARGAR PRECIO DE COMPRA
+        // CARGAR COSTO DE COMPRA
         private void cbxProducto_SelectedIndexChanged(
             object sender, EventArgs e)
         {
@@ -247,7 +281,8 @@ namespace CpRodapro
                 return;
             }
 
-            Producto producto = cbxProducto.SelectedItem as Producto;
+            Producto producto =
+                cbxProducto.SelectedItem as Producto;
 
             if (producto == null)
                 return;
@@ -260,20 +295,24 @@ namespace CpRodapro
 
             if (cantidad <= 0)
             {
-                MessageBox.Show("La cantidad debe ser mayor a cero.");
+                MessageBox.Show(
+                    "La cantidad debe ser mayor a cero."
+                );
                 return;
             }
 
             if (costo <= 0)
             {
-                MessageBox.Show("El costo debe ser mayor a cero.");
+                MessageBox.Show(
+                    "El costo debe ser mayor a cero."
+                );
                 return;
             }
 
-            if (descuento > subtotal)
+            if (descuento < 0 || descuento > subtotal)
             {
                 MessageBox.Show(
-                    "El descuento no puede ser mayor al subtotal."
+                    "El descuento no puede ser negativo ni mayor al subtotal."
                 );
                 return;
             }
@@ -305,6 +344,9 @@ namespace CpRodapro
 
             foreach (DataGridViewRow fila in dgvDetalle.Rows)
             {
+                if (fila.IsNewRow)
+                    continue;
+
                 subtotalGeneral += Convert.ToDecimal(
                     fila.Cells["subtotal"].Value
                 );
@@ -317,9 +359,14 @@ namespace CpRodapro
             decimal totalGeneral =
                 subtotalGeneral - descuentoGeneral;
 
-            lblSubtotal.Text = "Bs " + subtotalGeneral.ToString("N2");
-            lblDescuento.Text = "Bs " + descuentoGeneral.ToString("N2");
-            lblTotal.Text = "Bs " + totalGeneral.ToString("N2");
+            lblSubtotal.Text =
+                "Bs " + subtotalGeneral.ToString("N2");
+
+            lblDescuento.Text =
+                "Bs " + descuentoGeneral.ToString("N2");
+
+            lblTotal.Text =
+                "Bs " + totalGeneral.ToString("N2");
         }
 
         // REGISTRAR O MODIFICAR COMPRA
@@ -327,6 +374,33 @@ namespace CpRodapro
         {
             try
             {
+                // OBTENER USUARIO AUTENTICADO
+                int idUsuario = IdUsuarioActual;
+                string usuarioRegistro = UsuarioActual;
+
+                if (CpRodaPro.Util.usuario != null)
+                {
+                    if (idUsuario <= 0)
+                        idUsuario = CpRodaPro.Util.usuario.id;
+
+                    if (string.IsNullOrWhiteSpace(usuarioRegistro))
+                        usuarioRegistro =
+                            CpRodaPro.Util.usuario.usuario1;
+                }
+
+                if (idUsuario <= 0 ||
+                    string.IsNullOrWhiteSpace(usuarioRegistro))
+                {
+                    MessageBox.Show(
+                        "No existe un usuario autenticado.",
+                        "RodaPro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+
+                // VALIDAR PROVEEDOR
                 Proveedor proveedor =
                     cbxProveedor.SelectedItem as Proveedor;
 
@@ -337,13 +411,17 @@ namespace CpRodapro
                     return;
                 }
 
+                // VALIDAR DOCUMENTO
                 if (cbxTipoDocumento.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione el tipo de documento.");
+                    MessageBox.Show(
+                        "Seleccione el tipo de documento."
+                    );
                     cbxTipoDocumento.Focus();
                     return;
                 }
 
+                // VALIDAR DETALLES
                 if (dgvDetalle.Rows.Count == 0)
                 {
                     MessageBox.Show(
@@ -352,28 +430,26 @@ namespace CpRodapro
                     return;
                 }
 
-                if (CpRodaPro.Util.usuario == null)
-                {
-                    MessageBox.Show(
-                        "No existe un usuario autenticado."
-                    );
-                    return;
-                }
-
+                // CREAR COMPRA
                 Compra compra = new Compra
                 {
                     idProveedor = proveedor.id,
-                    idUsuario = CpRodaPro.Util.usuario.id,
+                    idUsuario = idUsuario,
                     fecha = dtpFecha.Value,
-                    numeroDocumento = txtNumeroDocumento.Text.Trim(),
+                    numeroDocumento =
+                        txtNumeroDocumento.Text.Trim(),
                     tipoDocumento = cbxTipoDocumento.Text
                 };
 
+                // CREAR DETALLES
                 List<CompraDetalle> detalles =
                     new List<CompraDetalle>();
 
                 foreach (DataGridViewRow fila in dgvDetalle.Rows)
                 {
+                    if (fila.IsNewRow)
+                        continue;
+
                     CompraDetalle detalle = new CompraDetalle
                     {
                         idProducto = Convert.ToInt32(
@@ -396,6 +472,7 @@ namespace CpRodapro
                     detalles.Add(detalle);
                 }
 
+                // MODIFICAR COMPRA
                 if (modoEdicion)
                 {
                     compra.id = idCompraEdicion;
@@ -403,7 +480,7 @@ namespace CpRodapro
                     CompraCln.modificar(
                         compra,
                         detalles,
-                        CpRodaPro.Util.usuario.usuario1
+                        usuarioRegistro
                     );
 
                     MessageBox.Show(
@@ -416,12 +493,13 @@ namespace CpRodapro
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+                // REGISTRAR COMPRA NUEVA
                 else
                 {
                     long idCompra = CompraCln.registrar(
                         compra,
                         detalles,
-                        CpRodaPro.Util.usuario.usuario1
+                        usuarioRegistro
                     );
 
                     MessageBox.Show(
@@ -432,6 +510,7 @@ namespace CpRodapro
                         MessageBoxIcon.Information
                     );
 
+                    // LIMPIAR FORMULARIO
                     dgvDetalle.Rows.Clear();
                     calcularTotales();
 
@@ -439,6 +518,11 @@ namespace CpRodapro
                     cbxTipoDocumento.SelectedIndex = -1;
                     txtNumeroDocumento.Clear();
                     dtpFecha.Value = DateTime.Now;
+
+                    cbxProducto.SelectedIndex = -1;
+                    nudCantidad.Value = 1;
+                    nudCostoUnitario.Value = 0;
+                    nudDescuento.Value = 0;
                 }
             }
             catch (Exception ex)
@@ -493,12 +577,15 @@ namespace CpRodapro
 
                 cbxProveedor.Focus();
 
-                MessageBox.Show("Compra cancelada correctamente.");
+                MessageBox.Show(
+                    "Compra cancelada correctamente."
+                );
             }
         }
 
         // ELIMINAR PRODUCTO DEL DETALLE
-        private void btnEliminarProducto_Click(object sender, EventArgs e)
+        private void btnEliminarProducto_Click(
+            object sender, EventArgs e)
         {
             if (dgvDetalle.CurrentRow == null)
             {
@@ -532,9 +619,24 @@ namespace CpRodapro
 
             try
             {
+                int idUsuario = IdUsuarioActual;
+                string usuario = UsuarioActual;
+
+                if (CpRodaPro.Util.usuario != null)
+                {
+                    if (idUsuario <= 0)
+                        idUsuario = CpRodaPro.Util.usuario.id;
+
+                    if (string.IsNullOrWhiteSpace(usuario))
+                        usuario = CpRodaPro.Util.usuario.usuario1;
+                }
+
                 using (FrmListaCompras formulario =
                     new FrmListaCompras())
                 {
+                    formulario.IdUsuarioActual = idUsuario;
+                    formulario.UsuarioActual = usuario;
+
                     formulario.ShowDialog(this);
                 }
             }

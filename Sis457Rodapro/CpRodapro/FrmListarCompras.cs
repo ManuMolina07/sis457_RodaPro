@@ -6,6 +6,9 @@ namespace CpRodapro
 {
     public partial class FrmListaCompras : Form
     {
+        public int IdUsuarioActual { get; set; }
+        public string UsuarioActual { get; set; }
+
         public FrmListaCompras()
         {
             InitializeComponent();
@@ -15,8 +18,8 @@ namespace CpRodapro
             btnBuscar.Click -= btnBuscar_Click;
             btnBuscar.Click += btnBuscar_Click;
 
-            btnCerrar.Click -= btnCerrar_Click;
-            btnCerrar.Click += btnCerrar_Click;
+            btnNuevo.Click -= btnNuevo_Click;
+            btnNuevo.Click += btnNuevo_Click;
 
             btnModificar.Click -= btnModificar_Click;
             btnModificar.Click += btnModificar_Click;
@@ -24,13 +27,34 @@ namespace CpRodapro
             btnAnular.Click -= btnAnular_Click;
             btnAnular.Click += btnAnular_Click;
 
+            btnCancelar.Click -= btnCancelar_Click;
+            btnCancelar.Click += btnCancelar_Click;
+
+            btnVolver.Click -= btnVolver_Click;
+            btnVolver.Click += btnVolver_Click;
+
             txtParametro.KeyDown -= txtParametro_KeyDown;
             txtParametro.KeyDown += txtParametro_KeyDown;
         }
 
         private void FrmListaCompras_Load(object sender, EventArgs e)
         {
+            ConfigurarGrilla();
             listar();
+        }
+
+        // CONFIGURAR GRILLA
+        private void ConfigurarGrilla()
+        {
+            dgvCompras.AutoGenerateColumns = true;
+            dgvCompras.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvCompras.MultiSelect = false;
+            dgvCompras.ReadOnly = true;
+            dgvCompras.AllowUserToAddRows = false;
+            dgvCompras.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         // LISTAR COMPRAS
@@ -38,42 +62,67 @@ namespace CpRodapro
         {
             try
             {
+                dgvCompras.DataSource = null;
                 dgvCompras.DataSource =
                     CompraCln.listar(txtParametro.Text.Trim());
 
-                dgvCompras.AutoSizeColumnsMode =
-                    DataGridViewAutoSizeColumnsMode.Fill;
-
-                dgvCompras.ReadOnly = true;
-                dgvCompras.AllowUserToAddRows = false;
-                dgvCompras.SelectionMode =
-                    DataGridViewSelectionMode.FullRowSelect;
-
-                dgvCompras.MultiSelect = false;
-
                 if (dgvCompras.Columns.Count > 0)
                 {
-                    dgvCompras.Columns["id"].HeaderText = "N.º Compra";
+                    if (dgvCompras.Columns.Contains("id"))
+                        dgvCompras.Columns["id"].HeaderText = "N.º Compra";
 
-                    dgvCompras.Columns["idProveedor"].Visible = false;
-                    dgvCompras.Columns["idUsuario"].Visible = false;
+                    if (dgvCompras.Columns.Contains("idProveedor"))
+                        dgvCompras.Columns["idProveedor"].Visible = false;
 
-                    dgvCompras.Columns["fecha"].HeaderText = "Fecha";
-                    dgvCompras.Columns["numeroDocumento"].HeaderText = "N.º Documento";
-                    dgvCompras.Columns["tipoDocumento"].HeaderText = "Tipo Documento";
-                    dgvCompras.Columns["proveedor"].HeaderText = "Proveedor";
-                    dgvCompras.Columns["usuarioRegistro"].HeaderText = "Registrado por";
+                    if (dgvCompras.Columns.Contains("idUsuario"))
+                        dgvCompras.Columns["idUsuario"].Visible = false;
 
-                    dgvCompras.Columns["subtotal"].HeaderText = "Subtotal (Bs.)";
-                    dgvCompras.Columns["descuento"].HeaderText = "Descuento (Bs.)";
-                    dgvCompras.Columns["total"].HeaderText = "Total (Bs.)";
+                    if (dgvCompras.Columns.Contains("fecha"))
+                    {
+                        dgvCompras.Columns["fecha"].HeaderText = "Fecha";
+                        dgvCompras.Columns["fecha"].DefaultCellStyle.Format =
+                            "dd/MM/yyyy HH:mm";
+                    }
 
-                    dgvCompras.Columns["fecha"].DefaultCellStyle.Format =
-                        "dd/MM/yyyy HH:mm";
+                    if (dgvCompras.Columns.Contains("numeroDocumento"))
+                        dgvCompras.Columns["numeroDocumento"].HeaderText =
+                            "N.º Documento";
 
-                    dgvCompras.Columns["subtotal"].DefaultCellStyle.Format = "N2";
-                    dgvCompras.Columns["descuento"].DefaultCellStyle.Format = "N2";
-                    dgvCompras.Columns["total"].DefaultCellStyle.Format = "N2";
+                    if (dgvCompras.Columns.Contains("tipoDocumento"))
+                        dgvCompras.Columns["tipoDocumento"].HeaderText =
+                            "Tipo Documento";
+
+                    if (dgvCompras.Columns.Contains("proveedor"))
+                        dgvCompras.Columns["proveedor"].HeaderText =
+                            "Proveedor";
+
+                    if (dgvCompras.Columns.Contains("usuarioRegistro"))
+                        dgvCompras.Columns["usuarioRegistro"].HeaderText =
+                            "Registrado por";
+
+                    if (dgvCompras.Columns.Contains("subtotal"))
+                    {
+                        dgvCompras.Columns["subtotal"].HeaderText =
+                            "Subtotal (Bs.)";
+                        dgvCompras.Columns["subtotal"].DefaultCellStyle.Format =
+                            "N2";
+                    }
+
+                    if (dgvCompras.Columns.Contains("descuento"))
+                    {
+                        dgvCompras.Columns["descuento"].HeaderText =
+                            "Descuento (Bs.)";
+                        dgvCompras.Columns["descuento"].DefaultCellStyle.Format =
+                            "N2";
+                    }
+
+                    if (dgvCompras.Columns.Contains("total"))
+                    {
+                        dgvCompras.Columns["total"].HeaderText =
+                            "Total (Bs.)";
+                        dgvCompras.Columns["total"].DefaultCellStyle.Format =
+                            "N2";
+                    }
                 }
             }
             catch (Exception ex)
@@ -82,8 +131,7 @@ namespace CpRodapro
                     "Error al listar las compras: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -93,33 +141,47 @@ namespace CpRodapro
             listar();
         }
 
-        // CERRAR
-        private void btnCerrar_Click(object sender, EventArgs e)
+        // NUEVA COMPRA
+        private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Close();
+            if (IdUsuarioActual <= 0 ||
+                string.IsNullOrWhiteSpace(UsuarioActual))
+            {
+                MessageBox.Show(
+                    "No se pudo identificar al usuario autenticado.");
+                return;
+            }
+
+            using (FrmCompra formulario = new FrmCompra())
+            {
+                formulario.IdUsuarioActual = IdUsuarioActual;
+                formulario.UsuarioActual = UsuarioActual;
+
+                formulario.ShowDialog(this);
+            }
+
+            listar();
         }
 
         // OBTENER COMPRA SELECCIONADA
         private CompraListarDto obtenerCompraSeleccionada()
         {
-            if (dgvCompras.SelectedRows.Count == 0)
+            if (dgvCompras.CurrentRow == null)
             {
                 MessageBox.Show(
                     "Seleccione una compra.",
                     "Aviso",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxIcon.Warning);
 
                 return null;
             }
 
-            return dgvCompras.SelectedRows[0].DataBoundItem
+            return dgvCompras.CurrentRow.DataBoundItem
                 as CompraListarDto;
         }
 
         // MODIFICAR COMPRA
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             CompraListarDto compra = obtenerCompraSeleccionada();
@@ -127,24 +189,36 @@ namespace CpRodapro
             if (compra == null)
                 return;
 
-            using (FrmCompra formulario = new FrmCompra(compra.id))
+            if (IdUsuarioActual <= 0 ||
+                string.IsNullOrWhiteSpace(UsuarioActual))
             {
-                DialogResult resultado = formulario.ShowDialog(this);
+                MessageBox.Show(
+                    "No se pudo identificar al usuario autenticado.");
+                return;
+            }
 
-                if (resultado == DialogResult.OK)
+            try
+            {
+                using (FrmCompra formulario = new FrmCompra(compra.id))
                 {
-                    listar();
+                    formulario.IdUsuarioActual = IdUsuarioActual;
+                    formulario.UsuarioActual = UsuarioActual;
 
-                    MessageBox.Show(
-                        "El listado de compras fue actualizado.",
-                        "RodaPro",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    formulario.ShowDialog(this);
                 }
+
+                listar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al abrir la compra para modificar: " +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
-
 
         // ANULAR COMPRA
         private void btnAnular_Click(object sender, EventArgs e)
@@ -154,6 +228,14 @@ namespace CpRodapro
             if (compra == null)
                 return;
 
+            if (IdUsuarioActual <= 0 ||
+                string.IsNullOrWhiteSpace(UsuarioActual))
+            {
+                MessageBox.Show(
+                    "No se pudo identificar al usuario autenticado.");
+                return;
+            }
+
             DialogResult respuesta = MessageBox.Show(
                 "¿Está seguro de anular esta compra?" +
                 "\n\nNúmero de compra: " + compra.id +
@@ -162,24 +244,21 @@ namespace CpRodapro
                 "\n\nSe revertirá el stock de los productos.",
                 "Confirmar anulación",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
+                MessageBoxIcon.Warning);
 
             if (respuesta != DialogResult.Yes)
                 return;
 
             try
             {
-                CompraCln.anular(compra.id, "admin");
+                CompraCln.anular(compra.id, UsuarioActual);
 
                 MessageBox.Show(
                     "La compra fue anulada correctamente.",
                     "Compra anulada",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                    MessageBoxIcon.Information);
 
-                // Actualizar listado
                 listar();
             }
             catch (Exception ex)
@@ -188,11 +267,24 @@ namespace CpRodapro
                     "Error al anular la compra:\n" + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
         }
 
+        // CANCELAR BÚSQUEDA
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            txtParametro.Clear();
+            listar();
+        }
+
+        // VOLVER
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // BUSCAR CON ENTER
         private void txtParametro_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

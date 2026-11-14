@@ -177,7 +177,7 @@ CREATE TABLE Pago (
             (idVenta IS NOT NULL AND idCompra IS NULL)
             OR
             (idVenta IS NULL AND idCompra IS NOT NULL)
-        ),
+        )
 );
 
 CREATE TABLE MovimientoInventario (
