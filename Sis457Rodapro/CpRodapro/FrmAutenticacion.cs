@@ -12,6 +12,8 @@ namespace CpRodapro
         {
             InitializeComponent();
 
+            txtClave.UseSystemPasswordChar = true;
+
             // EJECUTAR SOLO UNA VEZ:
             //crearAdministrador();
         }

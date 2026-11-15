@@ -45,13 +45,15 @@ namespace CpRodapro
         // PRODUCTOS
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            
+            FrmProducto formulario = new FrmProducto();
+            formulario.ShowDialog();
         }
 
         // PROVEEDORES
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-            
+            FrmProveedor formulario = new FrmProveedor();
+            formulario.ShowDialog();
         }
 
         // CLIENTES

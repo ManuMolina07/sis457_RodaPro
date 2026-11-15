@@ -2,6 +2,7 @@
 using CadRodapro;
 using System;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CpRodapro
@@ -10,6 +11,10 @@ namespace CpRodapro
     {
         private int id = 0;
         private bool modoEdicion = false;
+
+        private const int ANCHO = 900;
+        private const int ALTO_INICIAL = 338;
+        private const int ALTO_REGISTRO = 600;
 
         public FrmEmpleados()
         {
@@ -31,17 +36,25 @@ namespace CpRodapro
             dgvListaEmpleados.MultiSelect = false;
             dgvListaEmpleados.ReadOnly = true;
             dgvListaEmpleados.AllowUserToAddRows = false;
+
             dgvListaEmpleados.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
 
             dgvListaEmpleados.DataBindingComplete +=
                 dgvListaEmpleados_DataBindingComplete;
+
+            // EVENTO PARA SELECCIONAR EMPLEADO
+            dgvListaEmpleados.CellClick +=
+                dgvListaEmpleados_CellClick;
         }
 
+        // CARGAR FORMULARIO
         private void FrmEmpleados_Load(object sender, EventArgs e)
         {
             listar();
             restablecerEstado();
+
+            Size = new Size(ANCHO, ALTO_INICIAL);
         }
 
         // LISTAR EMPLEADOS
@@ -66,6 +79,11 @@ namespace CpRodapro
             dgvListaEmpleados.DataSource = datos;
 
             configurarColumnas();
+
+            // EVITAR SELECCIÓN AUTOMÁTICA
+            dgvListaEmpleados.ClearSelection();
+
+            id = 0;
         }
 
         // CONFIGURAR Y OCULTAR COLUMNAS
@@ -74,8 +92,12 @@ namespace CpRodapro
             foreach (DataGridViewColumn columna in dgvListaEmpleados.Columns)
             {
                 string nombre = columna.Name.ToLower();
-                string propiedad = (columna.DataPropertyName ?? "").ToLower();
-                string encabezado = (columna.HeaderText ?? "").ToLower();
+
+                string propiedad =
+                    (columna.DataPropertyName ?? "").ToLower();
+
+                string encabezado =
+                    (columna.HeaderText ?? "").ToLower();
 
                 // OCULTAR COLUMNAS INTERNAS
                 if (nombre == "id" || propiedad == "id" ||
@@ -102,6 +124,7 @@ namespace CpRodapro
             cambiarEncabezado("cargo", "Cargo");
         }
 
+        // CAMBIAR ENCABEZADOS
         private void cambiarEncabezado(string nombre, string encabezado)
         {
             foreach (DataGridViewColumn columna in dgvListaEmpleados.Columns)
@@ -117,17 +140,86 @@ namespace CpRodapro
             }
         }
 
-        // APLICAR CONFIGURACIÓN DESPUÉS DE CARGAR LOS DATOS
+        // CONFIGURACIÓN DESPUÉS DE CARGAR LOS DATOS
         private void dgvListaEmpleados_DataBindingComplete(
             object sender, DataGridViewBindingCompleteEventArgs e)
         {
             configurarColumnas();
+            dgvListaEmpleados.ClearSelection();
+        }
+
+        // SELECCIONAR EMPLEADO
+        private void dgvListaEmpleados_CellClick(
+            object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var empleado =
+                    dgvListaEmpleados.Rows[e.RowIndex].DataBoundItem
+                    as Empleado;
+
+                if (empleado != null)
+                {
+                    id = empleado.id;
+                }
+            }
+        }
+
+        // LIMPIAR FORMULARIO
+        private void limpiarFormulario()
+        {
+            id = 0;
+
+            txtCedula.Clear();
+            txtNombres.Clear();
+            txtPrimerApellido.Clear();
+            txtSegundoApellido.Clear();
+            txtDireccion.Clear();
+            txtCelular.Clear();
+            txtCargo.Clear();
+
+            dtpFechaNacimiento.Value =
+                DateTime.Today.AddYears(-18);
+
+            dgvListaEmpleados.ClearSelection();
+
+            txtCedula.Focus();
+        }
+
+        // RESTABLECER ESTADO
+        private void restablecerEstado()
+        {
+            modoEdicion = false;
+
+            dgvListaEmpleados.Enabled = true;
+
+            btnNuevo.Enabled = true;
+            btnModificar.Enabled = true;
+            btnEliminar.Enabled = true;
+
+            pnlRegistro.Enabled = true;
         }
 
         // NUEVO
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             restablecerEstado();
+            limpiarFormulario();
+
+            modoEdicion = false;
+
+            Size = new Size(ANCHO, ALTO_REGISTRO);
+
+            txtCedula.Enabled = true;
+            txtNombres.Enabled = true;
+            txtPrimerApellido.Enabled = true;
+            txtSegundoApellido.Enabled = true;
+            dtpFechaNacimiento.Enabled = true;
+            txtDireccion.Enabled = true;
+            txtCelular.Enabled = true;
+            txtCargo.Enabled = true;
+
+            txtCedula.Focus();
         }
 
         // GUARDAR
@@ -151,13 +243,15 @@ namespace CpRodapro
 
             if (txtCedula.Text.Trim().Length > 12)
             {
-                MessageBox.Show("La cédula no puede superar los 12 caracteres.");
+                MessageBox.Show(
+                    "La cédula no puede superar los 12 caracteres.");
                 return;
             }
 
             if (dtpFechaNacimiento.Value.Date >= DateTime.Today)
             {
-                MessageBox.Show("La fecha de nacimiento debe ser anterior a hoy.");
+                MessageBox.Show(
+                    "La fecha de nacimiento debe ser anterior a hoy.");
                 return;
             }
 
@@ -175,7 +269,9 @@ namespace CpRodapro
                 string.IsNullOrWhiteSpace(txtSegundoApellido.Text)
                 ? null : txtSegundoApellido.Text.Trim();
 
-            empleado.fechaNacimiento = dtpFechaNacimiento.Value.Date;
+            empleado.fechaNacimiento =
+                dtpFechaNacimiento.Value.Date;
+
             empleado.direccion = txtDireccion.Text.Trim();
             empleado.celular = celular;
             empleado.cargo = txtCargo.Text.Trim();
@@ -183,39 +279,61 @@ namespace CpRodapro
             string usuarioRegistro =
                 CpRodaPro.Util.usuario?.usuario1 ?? "admin";
 
+            bool estabaEditando = modoEdicion;
+
             try
             {
                 if (modoEdicion)
                 {
                     EmpleadoCln.actualizar(empleado, usuarioRegistro);
-                    MessageBox.Show("Empleado modificado correctamente.");
+
+                    MessageBox.Show(
+                        "Empleado modificado correctamente.");
                 }
                 else
                 {
                     EmpleadoCln.insertar(empleado, usuarioRegistro);
-                    MessageBox.Show("Empleado registrado correctamente.");
+
+                    MessageBox.Show(
+                        "Empleado registrado correctamente.");
                 }
 
                 listar();
+
                 restablecerEstado();
+                limpiarFormulario();
+
+                Size = new Size(ANCHO, ALTO_INICIAL);
+
+                pnlRegistro.Enabled = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar el empleado: " + ex.Message);
+                string operacion = estabaEditando
+                    ? "modificar"
+                    : "registrar";
+
+                MessageBox.Show(
+                    "Error al " + operacion +
+                    " el empleado: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
         // MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (dgvListaEmpleados.CurrentRow == null)
+            if (dgvListaEmpleados.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Seleccione un empleado.");
                 return;
             }
 
             var empleado =
-                dgvListaEmpleados.CurrentRow.DataBoundItem as Empleado;
+                dgvListaEmpleados.SelectedRows[0].DataBoundItem
+                as Empleado;
 
             if (empleado == null)
                 return;
@@ -223,32 +341,54 @@ namespace CpRodapro
             id = empleado.id;
             modoEdicion = true;
 
+            Size = new Size(ANCHO, ALTO_REGISTRO);
+
+            dgvListaEmpleados.Enabled = false;
+
             txtCedula.Text = empleado.cedulaIdentidad;
             txtNombres.Text = empleado.nombres;
             txtPrimerApellido.Text = empleado.primerApellido;
             txtSegundoApellido.Text = empleado.segundoApellido;
-            dtpFechaNacimiento.Value = empleado.fechaNacimiento;
+
+            dtpFechaNacimiento.Value =
+                empleado.fechaNacimiento;
+
             txtDireccion.Text = empleado.direccion;
             txtCelular.Text = empleado.celular.ToString();
             txtCargo.Text = empleado.cargo;
 
+            txtCedula.Enabled = true;
+            txtNombres.Enabled = true;
+            txtPrimerApellido.Enabled = true;
+            txtSegundoApellido.Enabled = true;
+            dtpFechaNacimiento.Enabled = true;
+            txtDireccion.Enabled = true;
+            txtCelular.Enabled = true;
+            txtCargo.Enabled = true;
+
             btnGuardar.Enabled = true;
+
+            txtCedula.Focus();
         }
 
         // ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (dgvListaEmpleados.CurrentRow == null)
+            // VERIFICAR SELECCIÓN REAL
+            if (dgvListaEmpleados.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Seleccione un empleado.");
+                MessageBox.Show("Seleccione un empleado de la lista.");
                 return;
             }
 
             var empleado =
-                dgvListaEmpleados.CurrentRow.DataBoundItem as Empleado;
+                dgvListaEmpleados.SelectedRows[0].DataBoundItem
+                as Empleado;
 
             if (empleado == null)
                 return;
+
+            id = empleado.id;
 
             DialogResult respuesta = MessageBox.Show(
                 "¿Está seguro de eliminar este empleado?",
@@ -264,16 +404,24 @@ namespace CpRodapro
 
                 try
                 {
-                    EmpleadoCln.eliminar(empleado.id, usuarioRegistro);
+                    EmpleadoCln.eliminar(id, usuarioRegistro);
 
-                    MessageBox.Show("Empleado eliminado correctamente.");
+                    MessageBox.Show(
+                        "Empleado eliminado correctamente.");
 
                     listar();
                     restablecerEstado();
+                    limpiarFormulario();
+
+                    Size = new Size(ANCHO, ALTO_INICIAL);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al eliminar: " + ex.Message);
+                    MessageBox.Show(
+                        "Error al eliminar: " + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
         }
@@ -288,6 +436,11 @@ namespace CpRodapro
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             restablecerEstado();
+            limpiarFormulario();
+
+            Size = new Size(ANCHO, ALTO_INICIAL);
+
+            pnlRegistro.Enabled = true;
         }
 
         // VOLVER
@@ -295,29 +448,6 @@ namespace CpRodapro
         {
             this.Close();
         }
-
-        // RESTABLECER FORMULARIO
-        private void restablecerEstado()
-        {
-            id = 0;
-            modoEdicion = false;
-
-            txtCedula.Clear();
-            txtNombres.Clear();
-            txtPrimerApellido.Clear();
-            txtSegundoApellido.Clear();
-            txtDireccion.Clear();
-            txtCelular.Clear();
-            txtCargo.Clear();
-
-            txtCedula.Enabled = true;
-            txtNombres.Enabled = true;
-            btnGuardar.Enabled = true;
-
-            dtpFechaNacimiento.Value =
-                DateTime.Today.AddYears(-18);
-
-            txtCedula.Focus();
-        }
     }
 }
+

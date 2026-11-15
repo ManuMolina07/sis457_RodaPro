@@ -1,21 +1,57 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\",
+  "WorkspaceRootPath": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\clnrodapro\\proveedorcln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|solutionrelative:clnrodapro\\proveedorcln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\clnrodapro\\productocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\clnrodapro\\productocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|solutionrelative:clnrodapro\\productocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\clnrodapro\\pagocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\clnrodapro\\pagocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|solutionrelative:clnrodapro\\pagocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,58 +62,164 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmProducto.cs",
-              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmProducto.cs",
-              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
-              "RelativeToolTip": "CpRodapro\\FrmProducto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T02:05:07.23Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmProducto.cs [Dise\u00F1o]",
-              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmProducto.cs",
-              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmProducto.cs [Dise\u00F1o]",
+              "DocumentIndex": 0,
+              "Title": "FrmAutenticacion.cs [Dise\u00F1o]",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmAutenticacion.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CpRodapro\\FrmAutenticacion.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T02:05:28.624Z",
+              "WhenOpened": "2026-11-15T11:08:59.645Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProductoCln.cs",
-              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
-              "RelativeDocumentMoniker": "ClnRodapro\\ProductoCln.cs",
-              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
-              "RelativeToolTip": "ClnRodapro\\ProductoCln.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAowGUAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "FrmAutenticacion.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmAutenticacion.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs",
+              "RelativeToolTip": "CpRodapro\\FrmAutenticacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T02:04:03.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-15T11:08:31.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\Program.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\Program.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\Program.cs",
+              "RelativeToolTip": "CpRodapro\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T11:07:38.861Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "FrmEmpleados.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmEmpleados.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmEmpleados.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmEmpleados.cs",
+              "RelativeToolTip": "CpRodapro\\FrmEmpleados.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:55:18.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FrmEmpleados.cs [Dise\u00F1o]",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmEmpleados.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmEmpleados.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmEmpleados.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CpRodapro\\FrmEmpleados.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:55:06.669Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FrmPrincipal.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmPrincipal.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
+              "RelativeToolTip": "CpRodapro\\FrmPrincipal.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAkwC8AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:52:42.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrmPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmPrincipal.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CpRodapro\\FrmPrincipal.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:48:27.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FrmProveedor.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProveedor.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmProveedor.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProveedor.cs",
+              "RelativeToolTip": "CpRodapro\\FrmProveedor.cs",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAiwEQBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:47:12.287Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FrmProveedor.cs [Dise\u00F1o]",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProveedor.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmProveedor.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProveedor.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CpRodapro\\FrmProveedor.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:45:08.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ProveedorCln.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProveedorCln.cs",
+              "RelativeDocumentMoniker": "ClnRodapro\\ProveedorCln.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProveedorCln.cs",
+              "RelativeToolTip": "ClnRodapro\\ProveedorCln.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T10:42:00.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FrmProducto.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmProducto.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
+              "RelativeToolTip": "CpRodapro\\FrmProducto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T02:05:07.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProductoCln.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
+              "RelativeDocumentMoniker": "ClnRodapro\\ProductoCln.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
+              "RelativeToolTip": "ClnRodapro\\ProductoCln.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAowGUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T02:04:03.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "PagoCln.cs",
-              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
+              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
               "RelativeDocumentMoniker": "ClnRodapro\\PagoCln.cs",
-              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
+              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
               "RelativeToolTip": "ClnRodapro\\PagoCln.cs",
               "ViewState": "AgIAADQAAAAAAAAAAAAowE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T02:03:06.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-15T02:03:06.723Z"
             }
           ]
         }

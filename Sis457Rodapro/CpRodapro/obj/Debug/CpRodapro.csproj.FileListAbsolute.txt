@@ -69,3 +69,5 @@ F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Roda
 F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\CpRodapro\bin\Debug\EntityFramework.SqlServer.xml
 F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.csproj.Up2Date
 F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.FrmEmpleados.resources
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.FrmProducto.resources
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\CpRodapro\obj\Debug\CpRodapro.FrmProveedor.resources

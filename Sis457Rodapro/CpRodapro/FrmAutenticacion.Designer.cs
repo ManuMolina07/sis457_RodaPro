@@ -89,6 +89,7 @@
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnIngresar
             // 
@@ -106,6 +107,7 @@
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnIngresar.UseVisualStyleBackColor = false;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // erpUsuario
             // 
@@ -146,7 +148,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(209, 78);
             this.label1.TabIndex = 53;
-            this.label1.Text = "Potencia, calidad y confienza en cada giro";
+            this.label1.Text = "Potencia, calidad y confianza en cada giro";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FrmAutenticacion
