@@ -66,6 +66,8 @@
     <Compile Include="UnidadMedidaCln.cs" />
     <Compile Include="UsuarioCln.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="VentaCln.cs" />
+    <Compile Include="VentaListarDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
