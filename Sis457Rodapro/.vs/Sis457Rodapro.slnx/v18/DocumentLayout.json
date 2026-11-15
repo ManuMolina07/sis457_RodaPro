@@ -1,35 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\",
+  "WorkspaceRootPath": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\clnrodapro\\productocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|solutionrelative:clnrodapro\\productocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F00AEF4-42BF-437B-AC4D-9063354C7D21}|CadRodapro\\CadRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cadrodapro\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{4F00AEF4-42BF-437B-AC4D-9063354C7D21}|CadRodapro\\CadRodapro.csproj|solutionrelative:cadrodapro\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\ddl_dml_Rodapro.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmautenticacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\ddl_dml_Rodapro.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\ddl_dml_Rodapro.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|ResultFrame"
+      "AbsoluteMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|d:\\psis457\\repositorio\\1ercommit\\sis457_rodapro\\sis457rodapro\\clnrodapro\\pagocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13C8FC23-28AE-4820-BCB8-6BDCC755D2D7}|ClnRodapro\\ClnRodapro.csproj|solutionrelative:clnrodapro\\pagocln.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,85 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmPrincipal.cs",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmPrincipal.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
-              "RelativeToolTip": "CpRodapro\\FrmPrincipal.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAkwJoAAAAFAAAAAAAAAA==",
+              "Title": "FrmProducto.cs",
+              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmProducto.cs",
+              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
+              "RelativeToolTip": "CpRodapro\\FrmProducto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-14T20:01:19.139Z",
+              "WhenOpened": "2026-11-15T02:05:07.23Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrmProducto.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs",
+              "RelativeDocumentMoniker": "CpRodapro\\FrmProducto.cs",
+              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmProducto.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CpRodapro\\FrmProducto.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T02:05:28.624Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "App.config",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\App.config",
-              "RelativeDocumentMoniker": "CpRodapro\\App.config",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\App.config",
-              "RelativeToolTip": "CpRodapro\\App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-11-14T19:59:09.365Z",
+              "Title": "ProductoCln.cs",
+              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
+              "RelativeDocumentMoniker": "ClnRodapro\\ProductoCln.cs",
+              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\ProductoCln.cs",
+              "RelativeToolTip": "ClnRodapro\\ProductoCln.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAowGUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T02:04:03.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "App.config",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CadRodapro\\App.config",
-              "RelativeDocumentMoniker": "CadRodapro\\App.config",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CadRodapro\\App.config",
-              "RelativeToolTip": "CadRodapro\\App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-11-14T19:58:51.099Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ddl_dml_Rodapro.sql ",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\ddl_dml_Rodapro.sql",
-              "RelativeDocumentMoniker": "..\\ddl_dml_Rodapro.sql",
-              "ToolTip": "ddl_dml_Rodapro.sql ",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-11-14T19:49:06.006Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FrmAutenticacion.cs [Dise\u00F1o]",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmAutenticacion.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmAutenticacion.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmAutenticacion.cs [Dise\u00F1o]",
+              "Title": "PagoCln.cs",
+              "DocumentMoniker": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
+              "RelativeDocumentMoniker": "ClnRodapro\\PagoCln.cs",
+              "ToolTip": "D:\\PSIS457\\repositorio\\1ercommit\\sis457_RodaPro\\Sis457Rodapro\\ClnRodapro\\PagoCln.cs",
+              "RelativeToolTip": "ClnRodapro\\PagoCln.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAowE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-14T14:26:08.246Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmPrincipal.cs [Dise\u00F1o]",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmPrincipal.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmPrincipal.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmPrincipal.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-14T14:23:25.28Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2026-11-15T02:03:06.723Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -59,6 +59,8 @@
     <Compile Include="CompraCln.cs" />
     <Compile Include="CompraListarDto.cs" />
     <Compile Include="EmpleadoCln.cs" />
+    <Compile Include="PagoCln.cs" />
+    <Compile Include="ProductoCln.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnidadMedidaCln.cs" />
     <Compile Include="UsuarioCln.cs" />
