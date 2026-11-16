@@ -481,8 +481,68 @@ SELECT * FROM Categoria;
 SELECT * FROM Producto;
 SELECT * FROM Proveedor;
 
+--SOLO EJECUTAR UNA VEZ---
+--CREACION DEL EMPLEADO ADMINISTRADOR(DUEÑO) DEL SISTEMA--
+USE LabRodapro;
+GO
 
+INSERT INTO Empleado
+(
+    cedulaIdentidad,
+    nombres,
+    primerApellido,
+    segundoApellido,
+    fechaNacimiento,
+    direccion,
+    celular,
+    cargo,
+    usuarioRegistro,
+    fechaRegistro,
+    estado
+)
+VALUES
+(
+    '10326488',
+    'José Gabriel',
+    'Tarqui',
+    'Aguilar',
+    '2008-11-14',
+    'Eulogio Ostria Reyes 777',
+    75481936,
+    'Administrador',
+    'admin',
+    GETDATE(),
+    1
+);
+GO
 
+SELECT * FROM Empleado;
 
+--CREACION DEL USUARIO INICIAL(DUEÑO)--
 
+USE LabRodapro;
+GO
+
+INSERT INTO Usuario
+(
+    idEmpleado,
+    usuario,
+    passwordHash,
+    rol,
+    usuarioRegistro,
+    fechaRegistro,
+    estado
+)
+VALUES
+(
+    (SELECT TOP 1 id FROM Empleado WHERE cedulaIdentidad = '10326488' ORDER BY id DESC),
+    'adminGTA',
+    'hSJTvvrouOauu/yywlFmLspP3yVD4f3ie79Px5lv51Y=',
+    'Administrador',
+    'adminGTA',
+    GETDATE(),
+    1
+);
+GO
+------------------------------------------------------
 
