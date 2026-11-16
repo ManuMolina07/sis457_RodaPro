@@ -1,0 +1,15 @@
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\ClnRodapro.dll.config
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\ClnRodapro.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\ClnRodapro.pdb
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\CadRodapro.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\EntityFramework.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\EntityFramework.SqlServer.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\CadRodapro.pdb
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\CadRodapro.dll.config
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\EntityFramework.xml
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\bin\Release\EntityFramework.SqlServer.xml
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Release\ClnRodapro.csproj.AssemblyReference.cache
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Release\ClnRodapro.csproj.CoreCompileInputs.cache
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Release\ClnRodapro.csproj.Up2Date
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Release\ClnRodapro.dll
+F:\MATERIAS\SIS457\ProyectoSIS457-clone\sis457_RodaPro\sis457_RodaPro\Sis457Rodapro\ClnRodapro\obj\Release\ClnRodapro.pdb

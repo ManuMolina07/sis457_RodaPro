@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\cprodapro\\frmventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmlistaventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmlistaventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmlistaventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmlistaventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|f:\\materias\\sis457\\proyectosis457-clone\\sis457_rodapro\\sis457_rodapro\\sis457rodapro\\cprodapro\\frmcategoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E99E148C-01B5-429E-BD57-EE0D2D6FC373}|CpRodapro\\CpRodapro.csproj|solutionrelative:cprodapro\\frmcategoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,73 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmListaVentas.cs",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmListaVentas.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmListaVentas.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmListaVentas.cs",
-              "RelativeToolTip": "CpRodapro\\FrmListaVentas.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADABAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-16T05:56:54.746Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmVenta.cs",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmVenta.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmVenta.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmVenta.cs",
-              "RelativeToolTip": "CpRodapro\\FrmVenta.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOoCAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T15:37:13.348Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmVenta.cs [Dise\u00F1o]",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmVenta.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmVenta.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmVenta.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmVenta.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-16T05:38:35.901Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmListaVentas.cs [Dise\u00F1o]",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmListaVentas.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmListaVentas.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmListaVentas.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmListaVentas.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-16T05:31:26.73Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FrmCategoria.cs [Dise\u00F1o]",
-              "DocumentMoniker": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmCategoria.cs",
-              "RelativeDocumentMoniker": "CpRodapro\\FrmCategoria.cs",
-              "ToolTip": "F:\\MATERIAS\\SIS457\\ProyectoSIS457-clone\\sis457_RodaPro\\sis457_RodaPro\\Sis457Rodapro\\CpRodapro\\FrmCategoria.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CpRodapro\\FrmCategoria.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-16T03:29:28.33Z",
-              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }

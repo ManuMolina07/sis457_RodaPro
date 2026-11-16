@@ -352,7 +352,6 @@
             this.Controls.Add(this.lblTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmProveedor";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "::: Gestión de Proveedores - RodaPro :::";
             this.pnlRegistro.ResumeLayout(false);
             this.pnlRegistro.PerformLayout();

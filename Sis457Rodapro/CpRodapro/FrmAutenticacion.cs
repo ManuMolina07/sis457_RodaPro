@@ -33,8 +33,8 @@ namespace CpRodapro
                     return;
                 }
 
-                var empleado = context.Empleado
-                    .FirstOrDefault(x => x.id == 4);
+                //PARA CREAR EL ADMINISTRADOR, PRIMERO DEBE EXISTIR EL EMPLEADO GABRIEL(DUEÑO) CON CÉDULA 10329801
+                var empleado = context.Empleado.FirstOrDefault(x => x.cedulaIdentidad == "10329801");
 
                 if (empleado == null)
                 {

@@ -324,7 +324,7 @@ GO
 USE LabRodapro
 GO
 
-ALTER PROCEDURE paCompraListar
+CREATE PROCEDURE paCompraListar
     @parametro VARCHAR(100)
 AS
 BEGIN
@@ -353,6 +353,43 @@ END
 GO
 
 EXEC paCompraListar ''
+
+--Ventas--
+
+
+DROP PROC IF EXISTS paVentaListar;
+GO
+
+CREATE PROC paVentaListar @parametro VARCHAR(50)
+AS
+    SELECT
+        v.id,
+        v.idCliente,
+        v.idUsuario,
+        v.fecha,
+        v.numeroDocumento,
+        v.tipoDocumento,
+        ISNULL(c.nombre + ' ' + c.apellido, 'SIN CLIENTE') AS cliente,
+        v.usuarioRegistro,
+        v.subtotal,
+        v.descuento,
+        v.total
+    FROM Venta v
+    LEFT JOIN Cliente c ON c.id = v.idCliente
+    WHERE v.estado = 1
+    AND (
+        CONVERT(VARCHAR(20), v.id) +
+        ISNULL(v.numeroDocumento, '') +
+        v.tipoDocumento +
+        ISNULL(c.nombre, '') +
+        ISNULL(c.apellido, '') +
+        ISNULL(v.usuarioRegistro, '')
+    ) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+    ORDER BY v.id DESC;
+GO
+
+EXEC paVentaListar '';
+GO
 --DML--
 
 --Empleado--
@@ -444,265 +481,8 @@ SELECT * FROM Categoria;
 SELECT * FROM Producto;
 SELECT * FROM Proveedor;
 
-SELECT id, idEmpleado, usuario, passwordHash, rol
-FROM Usuario;
-
-SELECT * FROM Empleado;
-DELETE FROM Empleado
-WHERE id = 3;
-
-SELECT
-    u.id,
-    e.nombres,
-    u.usuario,
-    u.passwordHash,
-    u.rol
-FROM Usuario u
-INNER JOIN Empleado e ON e.id = u.idEmpleado;
-
-USE LabRodapro;
-GO
-
-SELECT id, cedulaIdentidad, nombres, primerApellido, estado
-FROM Empleado;
-
-USE LabRodapro;
-GO
 
 
---Comprobar registro----
-
-SELECT id, idEmpleado, usuario, passwordHash, rol
-FROM Usuario;
-
---Eliminar registro duplicado--
-
-USE LabRodapro;
-GO
-
-DELETE FROM Usuario
-WHERE id = 2
-AND usuario = 'admin'
-AND passwordHash = 'admin123';
-GO
-
----------------------------
-
-SELECT 
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS Longitud
-FROM Usuario
-WHERE usuario = 'admin';
-
-SELECT 
-    COLUMN_NAME,
-    DATA_TYPE,
-    CHARACTER_MAXIMUM_LENGTH
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Usuario'
-AND COLUMN_NAME = 'passwordHash';
-
-SELECT 
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS Longitud,
-    DATALENGTH(passwordHash) AS Bytes
-FROM Usuario
-WHERE usuario = 'admin';
-
-USE LabRodapro;
-GO
-
-SELECT
-    id,
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS longitud,
-    estado
-FROM Usuario;
 
 
-SELECT usuario, passwordHash, estado
-FROM Usuario
-WHERE usuario = 'admin';
 
-
---
-
-USE LabRodapro;
-GO
-
-SELECT
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS longitud,
-    estado
-FROM Usuario
-WHERE usuario = 'admin';
-
-SELECT
-    usuario,
-    LEN(passwordHash) AS longitud,
-    DATALENGTH(passwordHash) AS bytes,
-    estado
-FROM Usuario
-WHERE usuario = 'admin';
-
-SELECT
-    COLUMN_NAME,
-    DATA_TYPE,
-    CHARACTER_MAXIMUM_LENGTH
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Usuario';
-
-USE LabRodapro
-GO
-
-SELECT *
-FROM Usuario
-WHERE usuario = 'admin'
-GO
-
-USE LabRodapro;
-GO
-
-SELECT
-    COLUMN_NAME,
-    DATA_TYPE
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Usuario';
-GO
-
----
-
-USE LabRodapro;
-GO
-
-UPDATE Usuario
-SET passwordHash = 'hSJTivwrouOauu/yywIFmLs43BBxFF8bueo8Lls33Qtc='
-WHERE usuario = 'admin';
-GO
-
-
-SELECT
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS Longitud
-FROM Usuario
-WHERE usuario = 'admin';
-GO
-
-
-SELECT
-    usuario,
-    '[' + passwordHash + ']' AS HashVisible,
-    LEN(passwordHash) AS Longitud,
-    DATALENGTH(passwordHash) AS BytesAlmacenados,
-    UNICODE(RIGHT(passwordHash, 1)) AS CodigoUltimoCaracter
-FROM Usuario
-WHERE usuario = 'admin';
-
-
-SELECT
-    passwordHash,
-    LEN(passwordHash) AS Longitud,
-    DATALENGTH(passwordHash) AS Bytes,
-    ASCII(SUBSTRING(passwordHash, 44, 1)) AS Caracter44,
-    ASCII(SUBSTRING(passwordHash, 45, 1)) AS Caracter45
-FROM Usuario
-WHERE usuario = 'admin';
-
-
-SELECT
-    COLUMN_NAME,
-    DATA_TYPE,
-    CHARACTER_MAXIMUM_LENGTH
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Usuario'
-AND COLUMN_NAME = 'passwordHash';
-
-
----
-USE LabRodapro;
-GO
-
-SELECT
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS Longitud,
-    DATALENGTH(passwordHash) AS Bytes
-FROM Usuario
-WHERE usuario = 'admin';
-
-USE LabRodapro;
-GO
-
-SELECT
-    passwordHash,
-    SUBSTRING(passwordHash, 1, 10) AS Primeros10,
-    SUBSTRING(passwordHash, 2, 1) AS CaracterPosicion2,
-    ASCII(SUBSTRING(passwordHash, 2, 1)) AS CodigoPosicion2,
-    LEN(passwordHash) AS Longitud
-FROM Usuario
-WHERE usuario = 'admin';
-
-
-USE LabRodapro;
-GO
-
-UPDATE Usuario
-SET passwordHash = 'hSJTivwrouOauu/yywIFmLs43BBxFF8bueo8Lls33Qtc='
-WHERE usuario = 'admin';
-GO
-
-SELECT
-    usuario,
-    passwordHash,
-    LEN(passwordHash) AS Longitud,
-    estado
-FROM Usuario
-WHERE usuario = 'admin';
-
-
-USE LabRodapro;
-GO
-
-SELECT
-    '[' + passwordHash + ']' AS HashCompleto,
-    LEN(passwordHash) AS LongitudLEN,
-    DATALENGTH(passwordHash) AS LongitudBytes,
-    ASCII(SUBSTRING(passwordHash, 2, 1)) AS CodigoPosicion2,
-    ASCII(RIGHT(passwordHash, 1)) AS UltimoCaracter
-FROM Usuario
-WHERE usuario = 'admin';
-
-USE LabRodapro;
-GO
-
-DELETE FROM Usuario
-WHERE usuario = 'admin';
-GO
-
-USE LabRodapro;
-GO
-SELECT id, nombres
-FROM Empleado;
-
-
-USE LabRodapro;
-GO
-
-DELETE FROM Usuario
-WHERE usuario = 'admin';
-GO
-
-USE LabRodapro;
-GO
-
-SELECT DB_NAME() AS BaseDeDatosActual;
-
-SELECT name
-FROM sys.procedures
-WHERE name = 'paCompraListar';
-GO
