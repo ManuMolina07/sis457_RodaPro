@@ -145,7 +145,15 @@ namespace CpRodapro
         // VENTAS
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            
+            FrmVenta formulario = new FrmVenta();
+
+            if (Util.usuario != null)
+            {
+                formulario.IdUsuarioActual = Util.usuario.id;
+                formulario.UsuarioActual = Util.usuario.usuario1;
+            }
+
+            formulario.ShowDialog();
         }
 
         // EMPLEADOS

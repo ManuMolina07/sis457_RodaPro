@@ -20,6 +20,8 @@ namespace CpRodapro
         {
             InitializeComponent();
 
+            // ASOCIAR EVENTOS
+            Load -= FrmUsuario_Load;
             Load += FrmUsuario_Load;
 
             btnBuscar.Click -= btnBuscar_Click;
@@ -46,20 +48,20 @@ namespace CpRodapro
             txtParametro.KeyDown -= txtParametro_KeyDown;
             txtParametro.KeyDown += txtParametro_KeyDown;
 
-            // Configurar roles
+            // CONFIGURAR ROLES
             cbxRol.Items.Clear();
             cbxRol.Items.Add("Administrador");
             cbxRol.Items.Add("Vendedor");
             cbxRol.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Configurar contraseña
+            // CONFIGURAR CONTRASEÑA
             txtClave.PasswordChar = '●';
         }
 
         // CARGAR FORMULARIO
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(ANCHO, ALTO_INICIAL);
+            Size = new Size(ANCHO, ALTO_INICIAL);
 
             cargarEmpleados();
             listar();
@@ -104,7 +106,7 @@ namespace CpRodapro
         {
             pnlRegistro.Visible = true;
 
-            this.Size = new Size(ANCHO, ALTO_REGISTRO);
+            Size = new Size(ANCHO, ALTO_REGISTRO);
 
             pnlRegistro.BringToFront();
 
@@ -115,9 +117,11 @@ namespace CpRodapro
         // RESTABLECER ESTADO
         private void restablecerEstado()
         {
+            modoEdicion = false;
+
             pnlRegistro.Visible = false;
 
-            this.Size = new Size(ANCHO, ALTO_INICIAL);
+            Size = new Size(ANCHO, ALTO_INICIAL);
 
             limpiarFormulario();
 
@@ -139,7 +143,6 @@ namespace CpRodapro
         }
 
         // LISTAR USUARIOS
-
         private void listar()
         {
             try
@@ -178,18 +181,18 @@ namespace CpRodapro
                 dgvLista.MultiSelect = false;
                 dgvLista.RowHeadersVisible = false;
 
-                // OCULTAR COLUMNAS QUE NO SE MOSTRARÁN
+                // OCULTAR COLUMNAS
                 string[] columnasOcultas =
                 {
-            "id",
-            "estado",
-            "passwordHash",
-            "Empleado",
-            "Compra",
-            "MovimientoInventario",
-            "Pago",
-            "Venta"
-        };
+                    "id",
+                    "estado",
+                    "passwordHash",
+                    "Empleado",
+                    "Compra",
+                    "MovimientoInventario",
+                    "Pago",
+                    "Venta"
+                };
 
                 foreach (string columna in columnasOcultas)
                 {
@@ -208,11 +211,13 @@ namespace CpRodapro
                     dgvLista.Columns["rol"].HeaderText = "Rol";
 
                 if (dgvLista.Columns.Contains("usuarioRegistro"))
-                    dgvLista.Columns["usuarioRegistro"].HeaderText = "Registrado por";
+                    dgvLista.Columns["usuarioRegistro"].HeaderText =
+                        "Registrado por";
 
                 if (dgvLista.Columns.Contains("fechaRegistro"))
                 {
-                    dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha de registro";
+                    dgvLista.Columns["fechaRegistro"].HeaderText =
+                        "Fecha de registro";
 
                     dgvLista.Columns["fechaRegistro"].DefaultCellStyle.Format =
                         "dd/MM/yyyy HH:mm";
@@ -229,7 +234,6 @@ namespace CpRodapro
                     MessageBoxIcon.Error);
             }
         }
-
 
         // OBTENER USUARIO SELECCIONADO
         private Usuario obtenerSeleccionado()
@@ -255,13 +259,15 @@ namespace CpRodapro
             listar();
         }
 
-        // BUSCAR CON ENTER
+        // BUSCAR AL PRESIONAR ENTER
         private void txtParametro_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                listar();
+                e.Handled = true;
+
+                btnBuscar.PerformClick();
             }
         }
 
@@ -390,8 +396,7 @@ namespace CpRodapro
                     rol = rol
                 };
 
-                // Temporalmente se registra con el usuario admin.
-                // Después podemos conectarlo con el usuario de sesión.
+                // TEMPORALMENTE SE REGISTRA CON ADMIN
                 string usuarioRegistro = "admin";
 
                 if (modoEdicion)

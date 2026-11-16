@@ -29,14 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCompra));
-            this.btnVerCompras = new System.Windows.Forms.Button();
             this.cbxTipoDocumento = new System.Windows.Forms.ComboBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblDescuento = new System.Windows.Forms.Label();
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTotalesRegistro = new System.Windows.Forms.Label();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
-            this.btnAgregar = new System.Windows.Forms.Button();
             this.lblDescuento1 = new System.Windows.Forms.Label();
             this.nudDescuento = new System.Windows.Forms.NumericUpDown();
             this.lblCostoUnitario = new System.Windows.Forms.Label();
@@ -55,30 +53,17 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cbxProveedor = new System.Windows.Forms.ComboBox();
             this.lblProveedor = new System.Windows.Forms.Label();
-            this.btnEliminarProducto = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnRegistrar = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnEliminarProducto = new System.Windows.Forms.Button();
+            this.btnVerCompras = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDescuento)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCostoUnitario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnVerCompras
-            // 
-            this.btnVerCompras.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnVerCompras.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVerCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerCompras.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerCompras.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVerCompras.Location = new System.Drawing.Point(289, 493);
-            this.btnVerCompras.Name = "btnVerCompras";
-            this.btnVerCompras.Size = new System.Drawing.Size(110, 57);
-            this.btnVerCompras.TabIndex = 72;
-            this.btnVerCompras.Text = "Ver Compras Registradas ";
-            this.btnVerCompras.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnVerCompras.UseVisualStyleBackColor = false;
             // 
             // cbxTipoDocumento
             // 
@@ -91,6 +76,7 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.Transparent;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.Location = new System.Drawing.Point(524, 182);
             this.lblTotal.Name = "lblTotal";
@@ -101,6 +87,7 @@
             // lblDescuento
             // 
             this.lblDescuento.AutoSize = true;
+            this.lblDescuento.BackColor = System.Drawing.Color.Transparent;
             this.lblDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescuento.Location = new System.Drawing.Point(524, 141);
             this.lblDescuento.Name = "lblDescuento";
@@ -111,6 +98,7 @@
             // lblSubtotal
             // 
             this.lblSubtotal.AutoSize = true;
+            this.lblSubtotal.BackColor = System.Drawing.Color.Transparent;
             this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubtotal.Location = new System.Drawing.Point(524, 97);
             this.lblSubtotal.Name = "lblSubtotal";
@@ -121,6 +109,7 @@
             // lblTotalesRegistro
             // 
             this.lblTotalesRegistro.AutoSize = true;
+            this.lblTotalesRegistro.BackColor = System.Drawing.Color.Transparent;
             this.lblTotalesRegistro.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalesRegistro.Location = new System.Drawing.Point(551, 55);
             this.lblTotalesRegistro.Name = "lblTotalesRegistro";
@@ -143,25 +132,10 @@
             this.dgvDetalle.Size = new System.Drawing.Size(370, 150);
             this.dgvDetalle.TabIndex = 62;
             // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.Image = global::CpRodapro.Properties.Resources.anadir;
-            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(24, 493);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(110, 57);
-            this.btnAgregar.TabIndex = 61;
-            this.btnAgregar.Text = "Agregar Producto";
-            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            // 
             // lblDescuento1
             // 
             this.lblDescuento1.AutoSize = true;
+            this.lblDescuento1.BackColor = System.Drawing.Color.Transparent;
             this.lblDescuento1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescuento1.Location = new System.Drawing.Point(412, 444);
             this.lblDescuento1.Name = "lblDescuento1";
@@ -179,6 +153,7 @@
             // lblCostoUnitario
             // 
             this.lblCostoUnitario.AutoSize = true;
+            this.lblCostoUnitario.BackColor = System.Drawing.Color.Transparent;
             this.lblCostoUnitario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCostoUnitario.Location = new System.Drawing.Point(412, 405);
             this.lblCostoUnitario.Name = "lblCostoUnitario";
@@ -196,6 +171,7 @@
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
+            this.lblCantidad.BackColor = System.Drawing.Color.Transparent;
             this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidad.Location = new System.Drawing.Point(412, 366);
             this.lblCantidad.Name = "lblCantidad";
@@ -221,6 +197,7 @@
             // lblProducto
             // 
             this.lblProducto.AutoSize = true;
+            this.lblProducto.BackColor = System.Drawing.Color.Transparent;
             this.lblProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProducto.Location = new System.Drawing.Point(412, 328);
             this.lblProducto.Name = "lblProducto";
@@ -231,6 +208,7 @@
             // lblProductos
             // 
             this.lblProductos.AutoSize = true;
+            this.lblProductos.BackColor = System.Drawing.Color.Transparent;
             this.lblProductos.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProductos.Location = new System.Drawing.Point(25, 286);
             this.lblProductos.Name = "lblProductos";
@@ -241,6 +219,7 @@
             // lblDatosCompra
             // 
             this.lblDatosCompra.AutoSize = true;
+            this.lblDatosCompra.BackColor = System.Drawing.Color.Transparent;
             this.lblDatosCompra.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDatosCompra.Location = new System.Drawing.Point(25, 55);
             this.lblDatosCompra.Name = "lblDatosCompra";
@@ -251,6 +230,7 @@
             // lblFecha
             // 
             this.lblFecha.AutoSize = true;
+            this.lblFecha.BackColor = System.Drawing.Color.Transparent;
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.Location = new System.Drawing.Point(27, 221);
             this.lblFecha.Name = "lblFecha";
@@ -275,6 +255,7 @@
             // lblNumeroDocumento
             // 
             this.lblNumeroDocumento.AutoSize = true;
+            this.lblNumeroDocumento.BackColor = System.Drawing.Color.Transparent;
             this.lblNumeroDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNumeroDocumento.Location = new System.Drawing.Point(27, 178);
             this.lblNumeroDocumento.Name = "lblNumeroDocumento";
@@ -285,6 +266,7 @@
             // lblTipoDocumento
             // 
             this.lblTipoDocumento.AutoSize = true;
+            this.lblTipoDocumento.BackColor = System.Drawing.Color.Transparent;
             this.lblTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTipoDocumento.Location = new System.Drawing.Point(27, 137);
             this.lblTipoDocumento.Name = "lblTipoDocumento";
@@ -295,8 +277,10 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
+            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(23, 10);
+            this.lblTitulo.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lblTitulo.Location = new System.Drawing.Point(639, 9);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(233, 32);
             this.lblTitulo.TabIndex = 45;
@@ -313,6 +297,7 @@
             // lblProveedor
             // 
             this.lblProveedor.AutoSize = true;
+            this.lblProveedor.BackColor = System.Drawing.Color.Transparent;
             this.lblProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProveedor.Location = new System.Drawing.Point(27, 93);
             this.lblProveedor.Name = "lblProveedor";
@@ -320,88 +305,122 @@
             this.lblProveedor.TabIndex = 43;
             this.lblProveedor.Text = "Proveedor:";
             // 
-            // btnEliminarProducto
-            // 
-            this.btnEliminarProducto.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnEliminarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminarProducto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarProducto.Image = global::CpRodapro.Properties.Resources.eliminar;
-            this.btnEliminarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminarProducto.Location = new System.Drawing.Point(156, 493);
-            this.btnEliminarProducto.Name = "btnEliminarProducto";
-            this.btnEliminarProducto.Size = new System.Drawing.Size(110, 57);
-            this.btnEliminarProducto.TabIndex = 71;
-            this.btnEliminarProducto.Text = "Eliminar Producto";
-            this.btnEliminarProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEliminarProducto.UseVisualStyleBackColor = false;
-            // 
-            // btnVolver
-            // 
-            this.btnVolver.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Image = global::CpRodapro.Properties.Resources.hogar;
-            this.btnVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVolver.Location = new System.Drawing.Point(751, 512);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(110, 38);
-            this.btnVolver.TabIndex = 69;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnVolver.UseVisualStyleBackColor = false;
-            // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnCancelar.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Image = global::CpRodapro.Properties.Resources.cancelar;
+            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.Image = global::CpRodapro.Properties.Resources._11_cancelar;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(671, 213);
+            this.btnCancelar.Location = new System.Drawing.Point(684, 221);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(110, 38);
-            this.btnCancelar.TabIndex = 68;
+            this.btnCancelar.Size = new System.Drawing.Size(110, 54);
+            this.btnCancelar.TabIndex = 74;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.UseVisualStyleBackColor = false;
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnRegistrar.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnRegistrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Image = global::CpRodapro.Properties.Resources.boton_mas;
+            this.btnRegistrar.ForeColor = System.Drawing.Color.White;
+            this.btnRegistrar.Image = global::CpRodapro.Properties.Resources._12_editar_documento;
             this.btnRegistrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrar.Location = new System.Drawing.Point(527, 213);
+            this.btnRegistrar.Location = new System.Drawing.Point(556, 221);
             this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(110, 38);
-            this.btnRegistrar.TabIndex = 67;
+            this.btnRegistrar.Size = new System.Drawing.Size(110, 54);
+            this.btnRegistrar.TabIndex = 73;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRegistrar.UseVisualStyleBackColor = false;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.ForeColor = System.Drawing.Color.White;
+            this.btnVolver.Image = global::CpRodapro.Properties.Resources._09_regresar;
+            this.btnVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVolver.Location = new System.Drawing.Point(751, 496);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(110, 54);
+            this.btnVolver.TabIndex = 75;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnVolver.UseVisualStyleBackColor = false;
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.Color.White;
+            this.btnAgregar.Image = global::CpRodapro.Properties.Resources._13_agregar;
+            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAgregar.Location = new System.Drawing.Point(24, 495);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(110, 54);
+            this.btnAgregar.TabIndex = 76;
+            this.btnAgregar.Text = "Agregar Producto";
+            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            // 
+            // btnEliminarProducto
+            // 
+            this.btnEliminarProducto.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnEliminarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminarProducto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarProducto.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarProducto.Image = global::CpRodapro.Properties.Resources._10_eliminar;
+            this.btnEliminarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEliminarProducto.Location = new System.Drawing.Point(152, 495);
+            this.btnEliminarProducto.Name = "btnEliminarProducto";
+            this.btnEliminarProducto.Size = new System.Drawing.Size(110, 54);
+            this.btnEliminarProducto.TabIndex = 77;
+            this.btnEliminarProducto.Text = "Eliminar Producto";
+            this.btnEliminarProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEliminarProducto.UseVisualStyleBackColor = false;
+            // 
+            // btnVerCompras
+            // 
+            this.btnVerCompras.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnVerCompras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerCompras.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerCompras.ForeColor = System.Drawing.Color.White;
+            this.btnVerCompras.Image = global::CpRodapro.Properties.Resources._01_descargar_documento1;
+            this.btnVerCompras.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVerCompras.Location = new System.Drawing.Point(268, 496);
+            this.btnVerCompras.Name = "btnVerCompras";
+            this.btnVerCompras.Size = new System.Drawing.Size(131, 54);
+            this.btnVerCompras.TabIndex = 78;
+            this.btnVerCompras.Text = "Ver Compras Registradas";
+            this.btnVerCompras.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnVerCompras.UseVisualStyleBackColor = false;
             // 
             // FrmCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BackgroundImage = global::CpRodapro.Properties.Resources.Banner_tecnológico_industrial_azul_y_blanco;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this.btnVerCompras);
             this.Controls.Add(this.btnEliminarProducto);
-            this.Controls.Add(this.cbxTipoDocumento);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnRegistrar);
+            this.Controls.Add(this.cbxTipoDocumento);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.lblDescuento);
             this.Controls.Add(this.lblSubtotal);
             this.Controls.Add(this.lblTotalesRegistro);
             this.Controls.Add(this.dgvDetalle);
-            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblDescuento1);
             this.Controls.Add(this.nudDescuento);
             this.Controls.Add(this.lblCostoUnitario);
@@ -434,19 +453,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnVerCompras;
-        private System.Windows.Forms.Button btnEliminarProducto;
         private System.Windows.Forms.ComboBox cbxTipoDocumento;
-        private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblDescuento;
         private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label lblTotalesRegistro;
         private System.Windows.Forms.DataGridView dgvDetalle;
-        private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label lblDescuento1;
         private System.Windows.Forms.NumericUpDown nudDescuento;
         private System.Windows.Forms.Label lblCostoUnitario;
@@ -465,5 +477,11 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox cbxProveedor;
         private System.Windows.Forms.Label lblProveedor;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnRegistrar;
+        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnEliminarProducto;
+        private System.Windows.Forms.Button btnVerCompras;
     }
 }

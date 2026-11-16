@@ -1,4 +1,5 @@
-﻿using CadRodapro;
+﻿
+using CadRodapro;
 using ClnRodaPro;
 using System;
 using System.Drawing;
@@ -8,9 +9,11 @@ namespace CpRodapro
 {
     public partial class FrmProducto : Form
     {
+        // VARIABLES
         private int id = 0;
         private bool modoEdicion = false;
 
+        // CONSTANTES
         private const int ANCHO = 900;
         private const int ALTO_INICIAL = 338;
         private const int ALTO_REGISTRO = 600;
@@ -20,6 +23,7 @@ namespace CpRodapro
             InitializeComponent();
         }
 
+        // CARGAR FORMULARIO
         private void FrmProducto_Load(object sender, EventArgs e)
         {
             cbxCategoria.DataSource = CategoriaCln.listar();
@@ -34,11 +38,10 @@ namespace CpRodapro
 
             cargarLista();
             limpiarFormulario();
-
-            Size = new Size(ANCHO, ALTO_INICIAL);
             restablecerEstado();
         }
 
+        // CARGAR LISTA DE PRODUCTOS
         private void cargarLista(string parametro = "")
         {
             dgvLista.DataSource = ProductoCln.listarPa(parametro);
@@ -58,6 +61,7 @@ namespace CpRodapro
             dgvLista.ClearSelection();
         }
 
+        // LIMPIAR FORMULARIO
         private void limpiarFormulario()
         {
             id = 0;
@@ -75,13 +79,14 @@ namespace CpRodapro
             cbxUnidad.SelectedIndex = -1;
 
             dgvLista.ClearSelection();
-
-            txtCodigo.Focus();
         }
 
+        // RESTABLECER ESTADO
         private void restablecerEstado()
         {
             modoEdicion = false;
+
+            Size = new Size(ANCHO, ALTO_INICIAL);
 
             dgvLista.Enabled = true;
 
@@ -89,27 +94,61 @@ namespace CpRodapro
             btnModificar.Enabled = true;
             btnEliminar.Enabled = true;
 
-            pnlRegistro.Enabled = true;
+            btnGuardar.Enabled = false;
+            btnCancelar.Enabled = false;
+
+            pnlRegistro.Enabled = false;
+
+            habilitarCampos(false);
         }
 
+        // HABILITAR O DESHABILITAR CAMPOS
+        private void habilitarCampos(bool habilitar)
+        {
+            txtCodigo.Enabled = habilitar;
+            txtNombre.Enabled = habilitar;
+            txtDescripcion.Enabled = habilitar;
+            txtMarca.Enabled = habilitar;
+            txtPrecioCompra.Enabled = habilitar;
+            txtPrecioVenta.Enabled = habilitar;
+            txtStock.Enabled = habilitar;
+            txtStockMinimo.Enabled = habilitar;
+
+            cbxCategoria.Enabled = habilitar;
+            cbxUnidad.Enabled = habilitar;
+        }
+
+        // ASIGNAR DATOS DEL FORMULARIO AL PRODUCTO
         private void asignarDatos(Producto producto)
         {
-            producto.idCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-            producto.idUnidadMedida = Convert.ToInt32(cbxUnidad.SelectedValue);
+            producto.idCategoria =
+                Convert.ToInt32(cbxCategoria.SelectedValue);
+
+            producto.idUnidadMedida =
+                Convert.ToInt32(cbxUnidad.SelectedValue);
 
             producto.codigo = txtCodigo.Text.Trim();
             producto.nombre = txtNombre.Text.Trim();
             producto.descripcion = txtDescripcion.Text.Trim();
             producto.marca = txtMarca.Text.Trim();
 
-            producto.precioCompra = Convert.ToDecimal(txtPrecioCompra.Text);
-            producto.precioVenta = Convert.ToDecimal(txtPrecioVenta.Text);
-            producto.stock = Convert.ToDecimal(txtStock.Text);
-            producto.stockMinimo = Convert.ToDecimal(txtStockMinimo.Text);
+            producto.precioCompra =
+                Convert.ToDecimal(txtPrecioCompra.Text);
 
-            producto.usuarioRegistro = "admin";
+            producto.precioVenta =
+                Convert.ToDecimal(txtPrecioVenta.Text);
+
+            producto.stock =
+                Convert.ToDecimal(txtStock.Text);
+
+            producto.stockMinimo =
+                Convert.ToDecimal(txtStockMinimo.Text);
+
+            producto.usuarioRegistro =
+                CpRodaPro.Util.usuario.usuario1;
         }
 
+        // VALIDAR DATOS
         private bool validarDatos()
         {
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
@@ -141,24 +180,33 @@ namespace CpRodapro
             }
 
             decimal precioCompra;
+
             if (!decimal.TryParse(txtPrecioCompra.Text, out precioCompra)
                 || precioCompra <= 0)
             {
-                MessageBox.Show("Ingrese un precio de compra válido y mayor a cero.");
+                MessageBox.Show(
+                    "Ingrese un precio de compra válido y mayor a cero."
+                );
+
                 txtPrecioCompra.Focus();
                 return false;
             }
 
             decimal precioVenta;
+
             if (!decimal.TryParse(txtPrecioVenta.Text, out precioVenta)
                 || precioVenta <= 0)
             {
-                MessageBox.Show("Ingrese un precio de venta válido y mayor a cero.");
+                MessageBox.Show(
+                    "Ingrese un precio de venta válido y mayor a cero."
+                );
+
                 txtPrecioVenta.Focus();
                 return false;
             }
 
             decimal stock;
+
             if (!decimal.TryParse(txtStock.Text, out stock) || stock < 0)
             {
                 MessageBox.Show("Ingrese un stock válido.");
@@ -167,6 +215,7 @@ namespace CpRodapro
             }
 
             decimal stockMinimo;
+
             if (!decimal.TryParse(txtStockMinimo.Text, out stockMinimo)
                 || stockMinimo < 0)
             {
@@ -178,35 +227,48 @@ namespace CpRodapro
             return true;
         }
 
+        // NUEVO PRODUCTO
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            restablecerEstado();
             limpiarFormulario();
 
             modoEdicion = false;
 
-            Size = new Size(900, 600);
+            Size = new Size(ANCHO, ALTO_REGISTRO);
 
-            // Habilitar los campos
-            txtCodigo.Enabled = true;
-            txtNombre.Enabled = true;
-            txtDescripcion.Enabled = true;
-            txtMarca.Enabled = true;
-            txtPrecioCompra.Enabled = true;
-            txtPrecioVenta.Enabled = true;
-            txtStock.Enabled = true;
-            txtStockMinimo.Enabled = true;
+            dgvLista.Enabled = false;
 
-            cbxCategoria.Enabled = true;
-            cbxUnidad.Enabled = true;
+            btnNuevo.Enabled = false;
+            btnModificar.Enabled = false;
+            btnEliminar.Enabled = false;
+
+            btnGuardar.Enabled = true;
+            btnCancelar.Enabled = true;
+
+            pnlRegistro.Enabled = true;
+
+            habilitarCampos(true);
 
             txtCodigo.Focus();
         }
 
+        // GUARDAR O ACTUALIZAR PRODUCTO
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!validarDatos())
                 return;
+
+            if (CpRodaPro.Util.usuario == null)
+            {
+                MessageBox.Show(
+                    "No existe un usuario autenticado.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
 
             bool estabaEditando = modoEdicion;
 
@@ -214,6 +276,7 @@ namespace CpRodapro
             {
                 if (modoEdicion)
                 {
+                    // ACTUALIZAR
                     Producto producto = ProductoCln.obtenerUno(id);
 
                     if (producto == null)
@@ -226,10 +289,13 @@ namespace CpRodapro
 
                     ProductoCln.actualizar(producto);
 
-                    MessageBox.Show("Producto modificado correctamente.");
+                    MessageBox.Show(
+                        "Producto modificado correctamente."
+                    );
                 }
                 else
                 {
+                    // REGISTRAR
                     Producto producto = new Producto();
 
                     asignarDatos(producto);
@@ -239,16 +305,14 @@ namespace CpRodapro
 
                     ProductoCln.crear(producto);
 
-                    MessageBox.Show("Producto registrado correctamente.");
+                    MessageBox.Show(
+                        "Producto registrado correctamente."
+                    );
                 }
 
                 cargarLista();
-
-                restablecerEstado();
                 limpiarFormulario();
-
-                Size = new Size(ANCHO, ALTO_INICIAL);
-                pnlRegistro.Enabled = true;
+                restablecerEstado();
             }
             catch (Exception ex)
             {
@@ -257,7 +321,8 @@ namespace CpRodapro
                     : "registrar";
 
                 MessageBox.Show(
-                    "Error al " + operacion + " el producto: " + ex.Message,
+                    "Error al " + operacion + " el producto:\n" +
+                    ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -265,42 +330,56 @@ namespace CpRodapro
             }
         }
 
+        // MODIFICAR PRODUCTO
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (id == 0)
             {
-                MessageBox.Show("Primero debes seleccionar un producto.");
+                MessageBox.Show(
+                    "Primero debes seleccionar un producto."
+                );
+
                 return;
             }
 
             modoEdicion = true;
 
-            Size = new Size(900, 600);
+            Size = new Size(ANCHO, ALTO_REGISTRO);
 
-            // Deshabilitar la lista y las acciones de selección
             dgvLista.Enabled = false;
 
-            // Habilitar los campos del formulario
-            txtCodigo.Enabled = true;
-            txtNombre.Enabled = true;
-            txtDescripcion.Enabled = true;
-            txtMarca.Enabled = true;
-            txtPrecioCompra.Enabled = true;
-            txtPrecioVenta.Enabled = true;
-            txtStock.Enabled = true;
-            txtStockMinimo.Enabled = true;
+            btnNuevo.Enabled = false;
+            btnModificar.Enabled = false;
+            btnEliminar.Enabled = false;
 
-            cbxCategoria.Enabled = true;
-            cbxUnidad.Enabled = true;
+            btnGuardar.Enabled = true;
+            btnCancelar.Enabled = true;
+
+            pnlRegistro.Enabled = true;
+
+            habilitarCampos(true);
 
             txtCodigo.Focus();
         }
 
+        // ELIMINAR PRODUCTO
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (id == 0)
             {
-                MessageBox.Show("Seleccione un producto de la lista.");
+                MessageBox.Show(
+                    "Seleccione un producto de la lista."
+                );
+
+                return;
+            }
+
+            if (CpRodaPro.Util.usuario == null)
+            {
+                MessageBox.Show(
+                    "No existe un usuario autenticado."
+                );
+
                 return;
             }
 
@@ -311,39 +390,49 @@ namespace CpRodapro
                 MessageBoxIcon.Question
             );
 
-            if (respuesta == DialogResult.Yes)
+            if (respuesta != DialogResult.Yes)
+                return;
+
+            try
             {
-                try
-                {
-                    ProductoCln.eliminar(id, "admin");
+                ProductoCln.eliminar(
+                    id,
+                    CpRodaPro.Util.usuario.usuario1
+                );
 
-                    MessageBox.Show("Producto eliminado correctamente.");
+                MessageBox.Show(
+                    "Producto eliminado correctamente."
+                );
 
-                    cargarLista();
-                    limpiarFormulario();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al eliminar el producto: " + ex.Message);
-                }
+                cargarLista();
+                limpiarFormulario();
+                restablecerEstado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al eliminar el producto: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
+        // CANCELAR
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            restablecerEstado();
             limpiarFormulario();
-
-            Size = new Size(900, 338);
-
-            pnlRegistro.Enabled = true;
+            restablecerEstado();
         }
 
+        // BUSCAR
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             cargarLista(txtParametro.Text.Trim());
         }
 
+        // BUSCAR AL PRESIONAR ENTER
         private void txtParametro_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -353,7 +442,10 @@ namespace CpRodapro
             }
         }
 
-        private void dgvLista_CellClick(object sender, DataGridViewCellEventArgs e)
+        // SELECCIONAR PRODUCTO
+        private void dgvLista_CellClick(
+            object sender,
+            DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || modoEdicion)
                 return;
@@ -362,10 +454,17 @@ namespace CpRodapro
 
             id = Convert.ToInt32(fila.Cells["id"].Value);
 
-            txtCodigo.Text = Convert.ToString(fila.Cells["codigo"].Value);
-            txtNombre.Text = Convert.ToString(fila.Cells["nombre"].Value);
-            txtDescripcion.Text = Convert.ToString(fila.Cells["descripcion"].Value);
-            txtMarca.Text = Convert.ToString(fila.Cells["marca"].Value);
+            txtCodigo.Text =
+                Convert.ToString(fila.Cells["codigo"].Value);
+
+            txtNombre.Text =
+                Convert.ToString(fila.Cells["nombre"].Value);
+
+            txtDescripcion.Text =
+                Convert.ToString(fila.Cells["descripcion"].Value);
+
+            txtMarca.Text =
+                Convert.ToString(fila.Cells["marca"].Value);
 
             cbxCategoria.SelectedValue =
                 Convert.ToInt32(fila.Cells["idCategoria"].Value);
@@ -386,9 +485,10 @@ namespace CpRodapro
                 Convert.ToString(fila.Cells["stockMinimo"].Value);
         }
 
+        // VOLVER
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

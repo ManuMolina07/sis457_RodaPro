@@ -1,7 +1,8 @@
-﻿using CadRodapro;
+﻿
+using CadRodapro;
 using ClnRodaPro;
 using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,20 +10,28 @@ namespace CpRodapro
 {
     public partial class FrmCategoria : Form
     {
+        // CONSTANTES
+        private const int ANCHO_FORMULARIO = 900;
+        private const int ALTO_INICIAL = 357;
+        private const int ALTO_REGISTRO = 600;
+        private const int ESTADO_ACTIVO = 1;
+
+        // VARIABLES
         private int idCategoria = 0;
         private bool modoEdicion = false;
-
-        private List<Categoria> listaCategorias =
-            new List<Categoria>();
 
         public FrmCategoria()
         {
             InitializeComponent();
 
-            // Configuración inicial
+            // CONFIGURACIÓN INICIAL
             pnlRegistro.Visible = false;
-            this.Size = new System.Drawing.Size(900, 357);
+            Size = new Size(ANCHO_FORMULARIO, ALTO_INICIAL);
 
+            btnGuardar.Enabled = false;
+            btnCancelar.Enabled = false;
+
+            // EVENTOS
             Load -= FrmCategoria_Load;
             Load += FrmCategoria_Load;
 
@@ -47,33 +56,32 @@ namespace CpRodapro
             btnVolver.Click -= btnVolver_Click;
             btnVolver.Click += btnVolver_Click;
 
-            pnlRegistro.Visible = false;
-
-            btnGuardar.Enabled = false;
-            btnCancelar.Enabled = false;
-
-            this.Size = new System.Drawing.Size(900, 357);
+            txtParametro.KeyDown -= txtParametro_KeyDown;
+            txtParametro.KeyDown += txtParametro_KeyDown;
         }
 
-        // Cargar formulario
+        // CARGAR FORMULARIO
         private void FrmCategoria_Load(object sender, EventArgs e)
         {
             configurarGrid();
             listar();
-            limpiar();
+            limpiarFormulario();
         }
 
-        // Configurar DataGridView
+        // CONFIGURAR DATAGRIDVIEW
         private void configurarGrid()
         {
             dgvLista.AutoGenerateColumns = false;
             dgvLista.AllowUserToAddRows = false;
             dgvLista.ReadOnly = true;
+
             dgvLista.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
+
             dgvLista.MultiSelect = false;
             dgvLista.Columns.Clear();
 
+            // ID
             dgvLista.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "id",
@@ -82,6 +90,7 @@ namespace CpRodapro
                 Visible = false
             });
 
+            // NOMBRE
             dgvLista.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "nombre",
@@ -90,6 +99,7 @@ namespace CpRodapro
                 Width = 200
             });
 
+            // DESCRIPCIÓN
             dgvLista.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "descripcion",
@@ -100,12 +110,12 @@ namespace CpRodapro
             });
         }
 
-        // Listar categorías
+        // LISTAR Y BUSCAR CATEGORÍAS
         private void listar()
         {
             try
             {
-                listaCategorias = CategoriaCln.listar();
+                var listaCategorias = CategoriaCln.listar();
 
                 string parametro = txtParametro.Text.Trim();
 
@@ -123,11 +133,14 @@ namespace CpRodapro
 
                 dgvLista.DataSource = null;
                 dgvLista.DataSource = resultado;
+
+                dgvLista.ClearSelection();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al listar categorías: " + ex.Message,
+                    "Error al listar categorías:\n" +
+                    obtenerDetalleError(ex),
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -135,76 +148,89 @@ namespace CpRodapro
             }
         }
 
-        // Limpiar controles
-        private void limpiar()
+        // LIMPIAR FORMULARIO
+        private void limpiarFormulario()
         {
             idCategoria = 0;
             modoEdicion = false;
 
             txtNombre.Clear();
             txtDescripcion.Clear();
+
+            btnGuardar.Text = "Guardar";
 
             dgvLista.ClearSelection();
-
-            btnGuardar.Text = "Guardar";
-
-            txtNombre.Focus();
         }
 
-        // Nuevo
+        // VALIDAR USUARIO AUTENTICADO
+        private bool validarUsuario(out string usuario)
+        {
+            usuario = null;
+
+            if (CpRodaPro.Util.usuario == null)
+            {
+                MessageBox.Show(
+                    "No existe un usuario autenticado.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return false;
+            }
+
+            usuario = CpRodaPro.Util.usuario.usuario1;
+
+            return true;
+        }
+
+        // NUEVO
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            idCategoria = 0;
-            modoEdicion = false;
-
-            txtNombre.Clear();
-            txtDescripcion.Clear();
-
-            btnGuardar.Text = "Guardar";
-
+            limpiarFormulario();
             habilitarRegistro();
         }
 
-        // Guardar o actualizar
+        // GUARDAR O ACTUALIZAR
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            string nombre = txtNombre.Text.Trim();
+            string descripcion = txtDescripcion.Text.Trim();
+
+            // VALIDAR NOMBRE
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                MessageBox.Show(
+                    "Ingrese el nombre de la categoría.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                txtNombre.Focus();
+                return;
+            }
+
+            // VALIDAR USUARIO
+            string usuario;
+
+            if (!validarUsuario(out usuario))
+                return;
+
             try
             {
-                string nombre = txtNombre.Text.Trim();
-                string descripcion = txtDescripcion.Text.Trim();
-
-                if (string.IsNullOrWhiteSpace(nombre))
+                // CREAR OBJETO CATEGORÍA
+                Categoria categoria = new Categoria
                 {
-                    MessageBox.Show(
-                        "Ingrese el nombre de la categoría.",
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-
-                    txtNombre.Focus();
-                    return;
-                }
-
-                if (CpRodaPro.Util.usuario == null)
-                {
-                    MessageBox.Show("No existe un usuario autenticado.");
-                    return;
-                }
-
-                string usuario =
-                    CpRodaPro.Util.usuario.usuario1;
+                    id = idCategoria,
+                    nombre = nombre,
+                    descripcion = descripcion,
+                    usuarioRegistro = usuario
+                };
 
                 if (modoEdicion)
                 {
-                    Categoria categoria = new Categoria
-                    {
-                        id = idCategoria,
-                        nombre = nombre,
-                        descripcion = descripcion,
-                        usuarioRegistro = usuario
-                    };
-
+                    // ACTUALIZAR
                     CategoriaCln.actualizar(categoria);
 
                     MessageBox.Show(
@@ -216,13 +242,8 @@ namespace CpRodapro
                 }
                 else
                 {
-                    Categoria categoria = new Categoria
-                    {
-                        nombre = nombre,
-                        descripcion = descripcion,
-                        usuarioRegistro = usuario,
-                        estado = 1
-                    };
+                    // REGISTRAR
+                    categoria.estado = ESTADO_ACTIVO;
 
                     CategoriaCln.crear(categoria);
 
@@ -240,7 +261,8 @@ namespace CpRodapro
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al guardar la categoría:\n" + ex.Message,
+                    "Error al guardar la categoría:\n\n" +
+                    obtenerDetalleError(ex),
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -248,11 +270,10 @@ namespace CpRodapro
             }
         }
 
-        // Seleccionar categoría para modificar
+        // MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (dgvLista.SelectedRows.Count == 0 ||
-                dgvLista.SelectedRows[0].DataBoundItem == null)
+            if (dgvLista.SelectedRows.Count == 0)
             {
                 MessageBox.Show(
                     "Seleccione una categoría para modificar.",
@@ -260,13 +281,28 @@ namespace CpRodapro
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
+
                 return;
             }
 
             Categoria categoria =
-                (Categoria)dgvLista.SelectedRows[0].DataBoundItem;
+                dgvLista.SelectedRows[0].DataBoundItem as Categoria;
 
+            if (categoria == null)
+            {
+                MessageBox.Show(
+                    "No se pudo obtener la categoría seleccionada.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            // CARGAR DATOS
             idCategoria = categoria.id;
+
             txtNombre.Text = categoria.nombre;
             txtDescripcion.Text = categoria.descripcion;
 
@@ -276,11 +312,10 @@ namespace CpRodapro
             habilitarRegistro();
         }
 
-        // Eliminación lógica
+        // ELIMINACIÓN LÓGICA
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (dgvLista.SelectedRows.Count == 0 ||
-                dgvLista.SelectedRows[0].DataBoundItem == null)
+            if (dgvLista.SelectedRows.Count == 0)
             {
                 MessageBox.Show(
                     "Seleccione una categoría para eliminar.",
@@ -288,12 +323,26 @@ namespace CpRodapro
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
+
                 return;
             }
 
             Categoria categoria =
-                (Categoria)dgvLista.SelectedRows[0].DataBoundItem;
+                dgvLista.SelectedRows[0].DataBoundItem as Categoria;
 
+            if (categoria == null)
+            {
+                MessageBox.Show(
+                    "No se pudo obtener la categoría seleccionada.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            // CONFIRMAR ELIMINACIÓN
             DialogResult respuesta = MessageBox.Show(
                 "¿Está seguro de eliminar la categoría " +
                 categoria.nombre + "?",
@@ -302,93 +351,114 @@ namespace CpRodapro
                 MessageBoxIcon.Question
             );
 
-            if (respuesta == DialogResult.Yes)
+            if (respuesta != DialogResult.Yes)
+                return;
+
+            // VALIDAR USUARIO
+            string usuario;
+
+            if (!validarUsuario(out usuario))
+                return;
+
+            try
             {
-                try
-                {
-                    if (CpRodaPro.Util.usuario == null)
-                    {
-                        MessageBox.Show("No existe un usuario autenticado.");
-                        return;
-                    }
+                CategoriaCln.eliminar(categoria.id, usuario);
 
-                    CategoriaCln.eliminar(
-                        categoria.id,
-                        CpRodaPro.Util.usuario.usuario1
-                    );
+                MessageBox.Show(
+                    "Categoría eliminada correctamente.",
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
-                    MessageBox.Show(
-                        "Categoría eliminada correctamente.",
-                        "RodaPro",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-
-                    listar();
-                    limpiar();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(
-                        "Error al eliminar la categoría:\n" + ex.Message,
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
+                listar();
+                restablecerEstado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al eliminar la categoría:\n" +
+                    obtenerDetalleError(ex),
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
-        // Buscar
+        // BUSCAR
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             listar();
         }
 
-        // Cancelar
+        // CANCELAR
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             restablecerEstado();
         }
 
-        // Volver
+        // VOLVER
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        // Mostrar panel de registro
+        // MOSTRAR PANEL DE REGISTRO
         private void habilitarRegistro()
         {
             pnlRegistro.Visible = true;
-            this.Size = new System.Drawing.Size(900, 600);
+
+            Size = new Size(
+                ANCHO_FORMULARIO,
+                ALTO_REGISTRO
+            );
 
             btnGuardar.Enabled = true;
             btnCancelar.Enabled = true;
 
             pnlRegistro.BringToFront();
+
             txtNombre.Focus();
         }
 
-        // Ocultar panel y restablecer formulario
+        // RESTABLECER FORMULARIO
         private void restablecerEstado()
         {
             pnlRegistro.Visible = false;
 
-            this.Size = new System.Drawing.Size(900, 357);
+            Size = new Size(
+                ANCHO_FORMULARIO,
+                ALTO_INICIAL
+            );
 
-            idCategoria = 0;
-            modoEdicion = false;
-
-            txtNombre.Clear();
-            txtDescripcion.Clear();
-
-            btnGuardar.Text = "Guardar";
+            limpiarFormulario();
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;
+        }
 
-            dgvLista.ClearSelection();
+        // OBTENER DETALLE REAL DEL ERROR
+        private string obtenerDetalleError(Exception ex)
+        {
+            Exception error = ex;
+
+            while (error.InnerException != null)
+            {
+                error = error.InnerException;
+            }
+
+            return error.Message;
+        }
+
+        // BUSCAR AL PRESIONAR ENTER
+        private void txtParametro_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                listar();
+            }
         }
     }
 }

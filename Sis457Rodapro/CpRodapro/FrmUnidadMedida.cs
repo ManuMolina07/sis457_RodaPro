@@ -50,7 +50,7 @@ namespace CpRodapro
         // CARGAR FORMULARIO
         private void FrmUnidadMedida_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(ANCHO, ALTO_INICIAL);
+            Size = new Size(ANCHO, ALTO_INICIAL);
 
             listar();
             restablecerEstado();
@@ -61,7 +61,7 @@ namespace CpRodapro
         {
             pnlRegistro.Visible = true;
 
-            this.Size = new Size(ANCHO, ALTO_REGISTRO);
+            Size = new Size(ANCHO, ALTO_REGISTRO);
 
             pnlRegistro.BringToFront();
 
@@ -74,7 +74,7 @@ namespace CpRodapro
         {
             pnlRegistro.Visible = false;
 
-            this.Size = new Size(ANCHO, ALTO_INICIAL);
+            Size = new Size(ANCHO, ALTO_INICIAL);
 
             txtDescripcion.Clear();
 
@@ -83,6 +83,8 @@ namespace CpRodapro
 
             btnGuardar.Enabled = false;
             btnCancelar.Enabled = false;
+
+            dgvLista.ClearSelection();
         }
 
         // LISTAR UNIDADES DE MEDIDA
@@ -97,9 +99,10 @@ namespace CpRodapro
                 if (!string.IsNullOrEmpty(parametro))
                 {
                     lista = lista
-                        .Where(x => x.descripcion.IndexOf(
-                            parametro,
-                            StringComparison.OrdinalIgnoreCase) >= 0)
+                        .Where(x => x.descripcion != null &&
+                            x.descripcion.IndexOf(
+                                parametro,
+                                StringComparison.OrdinalIgnoreCase) >= 0)
                         .ToList();
                 }
 
@@ -111,6 +114,7 @@ namespace CpRodapro
 
                 dgvLista.ReadOnly = true;
                 dgvLista.AllowUserToAddRows = false;
+
                 dgvLista.SelectionMode =
                     DataGridViewSelectionMode.FullRowSelect;
 
@@ -122,8 +126,12 @@ namespace CpRodapro
                 dgvLista.Columns["Producto"].Visible = false;
 
                 dgvLista.Columns["descripcion"].HeaderText = "Descripción";
-                dgvLista.Columns["usuarioRegistro"].HeaderText = "Registrado por";
-                dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha de registro";
+
+                dgvLista.Columns["usuarioRegistro"].HeaderText =
+                    "Registrado por";
+
+                dgvLista.Columns["fechaRegistro"].HeaderText =
+                    "Fecha de registro";
 
                 dgvLista.Columns["fechaRegistro"].DefaultCellStyle.Format =
                     "dd/MM/yyyy HH:mm";
@@ -177,10 +185,7 @@ namespace CpRodapro
         // BOTÓN NUEVO
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            id = 0;
-            modoEdicion = false;
-
-            txtDescripcion.Clear();
+            restablecerEstado();
 
             habilitarRegistro();
 
@@ -212,7 +217,8 @@ namespace CpRodapro
             {
                 string descripcion = txtDescripcion.Text.Trim();
 
-                if (string.IsNullOrEmpty(descripcion))
+                // VALIDAR DESCRIPCIÓN
+                if (string.IsNullOrWhiteSpace(descripcion))
                 {
                     MessageBox.Show(
                         "Ingrese la descripción de la unidad de medida.",
@@ -236,7 +242,37 @@ namespace CpRodapro
                     return;
                 }
 
-                if (modoEdicion)
+                // INSERTAR
+                if (!modoEdicion)
+                {
+                    if (CpRodaPro.Util.usuario == null)
+                    {
+                        MessageBox.Show(
+                            "No se pudo identificar al usuario autenticado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        return;
+                    }
+
+                    UnidadMedida unidad = new UnidadMedida
+                    {
+                        descripcion = descripcion,
+                        usuarioRegistro =
+                            CpRodaPro.Util.usuario.usuario1
+                    };
+
+                    UnidadMedidaCln.insertar(unidad);
+
+                    MessageBox.Show(
+                        "La unidad de medida fue registrada correctamente.",
+                        "Confirmación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                // ACTUALIZAR
+                else
                 {
                     UnidadMedida unidad = new UnidadMedida
                     {
@@ -252,21 +288,6 @@ namespace CpRodapro
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-                else
-                {
-                    UnidadMedida unidad = new UnidadMedida
-                    {
-                        descripcion = descripcion
-                    };
-
-                    UnidadMedidaCln.insertar(unidad);
-
-                    MessageBox.Show(
-                        "La unidad de medida fue registrada correctamente.",
-                        "Confirmación",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
 
                 restablecerEstado();
 
@@ -275,7 +296,7 @@ namespace CpRodapro
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al guardar la unidad de medida: " + ex.Message,
+                    "Error al guardar la unidad de medida:\n\n" + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

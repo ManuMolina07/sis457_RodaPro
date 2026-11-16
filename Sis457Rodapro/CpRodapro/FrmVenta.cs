@@ -17,13 +17,24 @@ namespace CpRodapro
         public long IdVentaEditar { get; set; } = 0;
 
         // STOCK ORIGINAL DE LOS PRODUCTOS DE LA VENTA
-        private Dictionary<int, decimal> stockOriginalVenta =
+        private readonly Dictionary<int, decimal> stockOriginalVenta =
             new Dictionary<int, decimal>();
+
+        // CLASE AUXILIAR PARA LOS PRODUCTOS DEL COMBOBOX
+        private class ProductoComboItem
+        {
+            public int id { get; set; }
+            public string descripcion { get; set; }
+            public decimal precio { get; set; }
+            public decimal stock { get; set; }
+        }
 
         public FrmVenta()
         {
             InitializeComponent();
 
+            // EVENTOS
+            Load -= FrmVenta_Load;
             Load += FrmVenta_Load;
 
             txtDescuento.TextChanged -= txtDescuento_TextChanged;
@@ -45,50 +56,15 @@ namespace CpRodapro
             btnGuardar.Click += btnGuardar_Click;
         }
 
+        // CARGAR FORMULARIO
         private void FrmVenta_Load(object sender, EventArgs e)
         {
-            // TIPO DE DOCUMENTO
-            cbxTipoDocumento.Items.Clear();
-            cbxTipoDocumento.Items.Add("Factura");
-            cbxTipoDocumento.Items.Add("Nota de venta");
-            cbxTipoDocumento.Items.Add("Recibo");
-            cbxTipoDocumento.SelectedIndex = -1;
-            cbxTipoDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            // COMBOBOX
-            cbxCliente.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxProducto.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            // FECHA
-            dtpFecha.Value = DateTime.Now;
-
-            // CANTIDAD
-            nudCantidad.DecimalPlaces = 2;
-            nudCantidad.Minimum = 0.01m;
-            nudCantidad.Maximum = 999999;
-            nudCantidad.Value = 1;
-
-            // PRECIO
-            txtPrecio.ReadOnly = true;
-            txtPrecio.Text = "0.00";
-
-            // DESCUENTOS
-            txtDescuentoDetalle.Text = "0";
-            txtDescuento.Text = "0";
-
-            // TOTALES
-            lblSubtotal.Text = "Bs. 0,00";
-            lblDescuento.Text = "Bs. 0,00";
-            lblTotal.Text = "Bs. 0,00";
-
-            // CONFIGURAR GRID
+            ConfigurarFormulario();
             ConfigurarDetalle();
 
-            // CARGAR INFORMACIÓN
             CargarClientes();
             CargarProductos();
 
-            // COMPROBAR SI ES MODIFICACIÓN
             if (ModoEdicion)
             {
                 btnGuardar.Text = "Actualizar";
@@ -99,9 +75,74 @@ namespace CpRodapro
             else
             {
                 btnGuardar.Text = "Guardar";
+                btnVerVentas.Enabled = true;
             }
 
             CalcularTotales();
+        }
+
+        // CONFIGURAR FORMULARIO
+        private void ConfigurarFormulario()
+        {
+            cbxTipoDocumento.Items.Clear();
+            cbxTipoDocumento.Items.Add("Factura");
+            cbxTipoDocumento.Items.Add("Nota de venta");
+            cbxTipoDocumento.Items.Add("Recibo");
+
+            cbxTipoDocumento.SelectedIndex = -1;
+            cbxTipoDocumento.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            cbxCliente.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            cbxProducto.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            dtpFecha.Value = DateTime.Now;
+
+            nudCantidad.DecimalPlaces = 2;
+            nudCantidad.Minimum = 0.01m;
+            nudCantidad.Maximum = 999999;
+            nudCantidad.Value = 1;
+
+            txtPrecio.ReadOnly = true;
+            txtPrecio.Text = "0.00";
+
+            txtDescuentoDetalle.Text = "0";
+            txtDescuento.Text = "0";
+
+            lblSubtotal.Text = "Subtotal: Bs. 0,00";
+            lblDescuento.Text = "Descuento: Bs. 0,00";
+            lblTotal.Text = "Total a pagar: Bs. 0,00";
+        }
+
+        // CONFIGURAR GRID
+        private void ConfigurarDetalle()
+        {
+            dgvDetalle.Columns.Clear();
+            dgvDetalle.AutoGenerateColumns = false;
+            dgvDetalle.AllowUserToAddRows = false;
+            dgvDetalle.ReadOnly = true;
+
+            dgvDetalle.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvDetalle.MultiSelect = false;
+
+            dgvDetalle.Columns.Add("idProducto", "ID");
+            dgvDetalle.Columns.Add("producto", "Producto");
+            dgvDetalle.Columns.Add("cantidad", "Cantidad");
+            dgvDetalle.Columns.Add("precio", "Precio (Bs.)");
+            dgvDetalle.Columns.Add("descuento", "Descuento (Bs.)");
+            dgvDetalle.Columns.Add("subtotal", "Subtotal (Bs.)");
+
+            dgvDetalle.Columns["idProducto"].Visible = false;
+
+            dgvDetalle.Columns["cantidad"].DefaultCellStyle.Format = "N2";
+            dgvDetalle.Columns["precio"].DefaultCellStyle.Format = "N2";
+            dgvDetalle.Columns["descuento"].DefaultCellStyle.Format = "N2";
+            dgvDetalle.Columns["subtotal"].DefaultCellStyle.Format = "N2";
         }
 
         // CARGAR CLIENTES
@@ -141,12 +182,12 @@ namespace CpRodapro
                 var productos = ProductoCln.listar();
 
                 cbxProducto.DataSource = productos
-                    .Select(p => new
+                    .Select(p => new ProductoComboItem
                     {
                         id = p.id,
                         descripcion = p.codigo + " - " + p.nombre,
-                        precio = p.precioVenta,
-                        stock = p.stock
+                        precio = Convert.ToDecimal(p.precioVenta),
+                        stock = Convert.ToDecimal(p.stock)
                     })
                     .ToList();
 
@@ -164,29 +205,6 @@ namespace CpRodapro
             }
         }
 
-        // CONFIGURAR GRID
-        private void ConfigurarDetalle()
-        {
-            dgvDetalle.Columns.Clear();
-            dgvDetalle.AutoGenerateColumns = false;
-            dgvDetalle.AllowUserToAddRows = false;
-            dgvDetalle.ReadOnly = true;
-
-            dgvDetalle.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
-            dgvDetalle.MultiSelect = false;
-
-            dgvDetalle.Columns.Add("idProducto", "ID");
-            dgvDetalle.Columns.Add("producto", "Producto");
-            dgvDetalle.Columns.Add("cantidad", "Cantidad");
-            dgvDetalle.Columns.Add("precio", "Precio (Bs.)");
-            dgvDetalle.Columns.Add("descuento", "Descuento (Bs.)");
-            dgvDetalle.Columns.Add("subtotal", "Subtotal (Bs.)");
-
-            dgvDetalle.Columns["idProducto"].Visible = false;
-        }
-
         // CARGAR VENTA PARA MODIFICAR
         private void CargarVentaEditar()
         {
@@ -196,7 +214,12 @@ namespace CpRodapro
 
                 if (venta == null)
                 {
-                    MessageBox.Show("La venta no existe o está anulada.");
+                    MessageBox.Show(
+                        "La venta no existe o está anulada.",
+                        "RodaPro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
                     Close();
                     return;
                 }
@@ -215,43 +238,46 @@ namespace CpRodapro
 
                 txtDescuento.Text = venta.descuento.ToString();
 
-                // RECUPERAR DETALLES
+                // CARGAR DETALLES
                 var detalles = VentaCln.listarDetalles(IdVentaEditar);
 
-                if (detalles.Count == 0)
+                if (detalles == null || detalles.Count == 0)
                 {
                     MessageBox.Show(
-                        "Esta venta no tiene productos registrados.");
+                        "Esta venta no tiene productos registrados.",
+                        "RodaPro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
                     Close();
                     return;
                 }
-
-                var productos = ProductoCln.listar();
 
                 stockOriginalVenta.Clear();
 
                 foreach (var detalle in detalles)
                 {
-                    var producto = productos.FirstOrDefault(
-                        p => p.id == detalle.idProducto);
+                    ProductoComboItem producto =
+                        cbxProducto.Items
+                            .Cast<ProductoComboItem>()
+                            .FirstOrDefault(p => p.id == detalle.idProducto);
 
-                    string nombreProducto;
+                    string nombreProducto =
+                        producto != null
+                            ? producto.descripcion
+                            : "Producto ID: " + detalle.idProducto;
 
-                    if (producto != null)
+                    // GUARDAR CANTIDAD ORIGINAL
+                    if (stockOriginalVenta.ContainsKey(detalle.idProducto))
                     {
-                        nombreProducto =
-                            producto.codigo + " - " + producto.nombre;
-
-                        decimal stock = Convert.ToDecimal(producto.stock);
-
-                        if (stockOriginalVenta.ContainsKey(detalle.idProducto))
-                            stockOriginalVenta[detalle.idProducto] += detalle.cantidad;
-                        else
-                            stockOriginalVenta.Add(detalle.idProducto, detalle.cantidad);
+                        stockOriginalVenta[detalle.idProducto] +=
+                            detalle.cantidad;
                     }
                     else
                     {
-                        nombreProducto = "Producto ID: " + detalle.idProducto;
+                        stockOriginalVenta.Add(
+                            detalle.idProducto,
+                            detalle.cantidad);
                     }
 
                     decimal subtotalDetalle =
@@ -264,8 +290,7 @@ namespace CpRodapro
                         detalle.cantidad,
                         detalle.precioUnitario,
                         detalle.descuento,
-                        subtotalDetalle
-                    );
+                        subtotalDetalle);
                 }
 
                 CalcularTotales();
@@ -282,108 +307,137 @@ namespace CpRodapro
             }
         }
 
+        // OBTENER PRODUCTO SELECCIONADO
+        private ProductoComboItem ObtenerProductoSeleccionado()
+        {
+            return cbxProducto.SelectedItem as ProductoComboItem;
+        }
+
         // MOSTRAR PRECIO DEL PRODUCTO
         private void cbxProducto_SelectedIndexChanged(
             object sender, EventArgs e)
         {
-            if (cbxProducto.SelectedItem == null)
+            ProductoComboItem producto = ObtenerProductoSeleccionado();
+
+            if (producto == null)
             {
                 txtPrecio.Text = "0.00";
                 return;
             }
 
-            dynamic producto = cbxProducto.SelectedItem;
-
-            txtPrecio.Text =
-                Convert.ToDecimal(producto.precio).ToString("N2");
+            txtPrecio.Text = producto.precio.ToString("N2");
         }
 
         // AGREGAR PRODUCTO AL DETALLE
         private void btnAgregarProducto_Click(
             object sender, EventArgs e)
         {
-            if (cbxProducto.SelectedIndex == -1)
-            {
-                MessageBox.Show("Seleccione un producto.");
-                return;
-            }
+            ProductoComboItem producto = ObtenerProductoSeleccionado();
 
-            dynamic producto = cbxProducto.SelectedItem;
-
-            int idProducto = Convert.ToInt32(producto.id);
-            string nombreProducto = producto.descripcion;
-            decimal precio = Convert.ToDecimal(producto.precio);
-            decimal stock = Convert.ToDecimal(producto.stock);
-            decimal cantidad = nudCantidad.Value;
-
-            decimal descuento = 0;
-
-            if (!decimal.TryParse(
-                txtDescuentoDetalle.Text, out descuento))
-            {
-                MessageBox.Show("Ingrese un descuento válido.");
-                return;
-            }
-
-            if (descuento < 0)
+            if (producto == null)
             {
                 MessageBox.Show(
-                    "El descuento no puede ser negativo.");
+                    "Seleccione un producto.",
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
-            // EN MODIFICACIÓN SE SUMA EL STOCK ORIGINAL
-            decimal stockDisponible = stock;
+            decimal cantidad = nudCantidad.Value;
+            decimal descuento;
+
+            if (!decimal.TryParse(
+                txtDescuentoDetalle.Text, out descuento) ||
+                descuento < 0)
+            {
+                MessageBox.Show(
+                    "Ingrese un descuento válido.",
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                txtDescuentoDetalle.Focus();
+                return;
+            }
+
+            // VALIDAR STOCK DISPONIBLE
+            decimal stockDisponible = producto.stock;
 
             if (ModoEdicion &&
-                stockOriginalVenta.ContainsKey(idProducto))
+                stockOriginalVenta.ContainsKey(producto.id))
             {
-                stockDisponible += stockOriginalVenta[idProducto];
+                stockDisponible += stockOriginalVenta[producto.id];
             }
 
             if (cantidad > stockDisponible)
             {
                 MessageBox.Show(
                     "La cantidad supera el stock disponible. Stock: " +
-                    stockDisponible);
+                    stockDisponible,
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
-            decimal importe = cantidad * precio;
+            // VALIDAR DESCUENTO POR PRODUCTO
+            decimal importe = cantidad * producto.precio;
 
             if (descuento > importe)
             {
                 MessageBox.Show(
-                    "El descuento no puede superar el importe del producto.");
+                    "El descuento no puede superar el importe del producto.",
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             // EVITAR PRODUCTOS DUPLICADOS
-            foreach (DataGridViewRow fila in dgvDetalle.Rows)
+            if (ProductoYaAgregado(producto.id))
             {
-                if (Convert.ToInt32(
-                    fila.Cells["idProducto"].Value) == idProducto)
-                {
-                    MessageBox.Show(
-                        "Este producto ya está agregado al detalle.");
-                    return;
-                }
+                MessageBox.Show(
+                    "Este producto ya está agregado al detalle.",
+                    "RodaPro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
             }
 
             decimal subtotal = importe - descuento;
 
             dgvDetalle.Rows.Add(
-                idProducto,
-                nombreProducto,
+                producto.id,
+                producto.descripcion,
                 cantidad,
-                precio,
+                producto.precio,
                 descuento,
-                subtotal
-            );
+                subtotal);
 
             CalcularTotales();
+            LimpiarProductoSeleccionado();
+        }
 
-            // LIMPIAR CAMPOS
+        // COMPROBAR SI EL PRODUCTO YA ESTÁ AGREGADO
+        private bool ProductoYaAgregado(int idProducto)
+        {
+            foreach (DataGridViewRow fila in dgvDetalle.Rows)
+            {
+                if (fila.Cells["idProducto"].Value != null &&
+                    Convert.ToInt32(
+                        fila.Cells["idProducto"].Value) == idProducto)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // LIMPIAR CAMPOS DEL PRODUCTO
+        private void LimpiarProductoSeleccionado()
+        {
             cbxProducto.SelectedIndex = -1;
             txtPrecio.Text = "0.00";
             nudCantidad.Value = 1;
@@ -397,11 +451,10 @@ namespace CpRodapro
             CalcularTotales();
         }
 
-        // CALCULAR TOTALES
-        private void CalcularTotales()
+        // OBTENER SUBTOTAL DE LA VENTA
+        private decimal ObtenerSubtotal()
         {
             decimal subtotal = 0;
-            decimal descuentoGeneral = 0;
 
             foreach (DataGridViewRow fila in dgvDetalle.Rows)
             {
@@ -412,8 +465,18 @@ namespace CpRodapro
                 }
             }
 
+            return subtotal;
+        }
+
+        // CALCULAR TOTALES
+        private void CalcularTotales()
+        {
+            decimal subtotal = ObtenerSubtotal();
+            decimal descuentoGeneral = 0;
+
             decimal.TryParse(
-                txtDescuento.Text, out descuentoGeneral);
+                txtDescuento.Text,
+                out descuentoGeneral);
 
             if (descuentoGeneral < 0)
                 descuentoGeneral = 0;
@@ -433,171 +496,139 @@ namespace CpRodapro
                 "Total a pagar: Bs. " + total.ToString("N2");
         }
 
+        // VALIDAR DATOS DE LA VENTA
+        private bool ValidarVenta(
+            out decimal subtotal,
+            out decimal descuento)
+        {
+            subtotal = 0;
+            descuento = 0;
+
+            if (IdUsuarioActual <= 0 ||
+                string.IsNullOrWhiteSpace(UsuarioActual))
+            {
+                MessageBox.Show(
+                    "Debe iniciar sesión para registrar una venta.");
+                return false;
+            }
+
+            if (cbxTipoDocumento.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione el tipo de documento.");
+                cbxTipoDocumento.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNumeroDocumento.Text))
+            {
+                MessageBox.Show("Ingrese el número de documento.");
+                txtNumeroDocumento.Focus();
+                return false;
+            }
+
+            if (dgvDetalle.Rows.Count == 0)
+            {
+                MessageBox.Show("Agregue al menos un producto.");
+                return false;
+            }
+
+            if (!decimal.TryParse(txtDescuento.Text, out descuento) ||
+                descuento < 0)
+            {
+                MessageBox.Show(
+                    "Ingrese un descuento general válido.");
+
+                txtDescuento.Focus();
+                return false;
+            }
+
+            subtotal = ObtenerSubtotal();
+
+            if (descuento > subtotal)
+            {
+                MessageBox.Show(
+                    "El descuento no puede superar el subtotal.");
+                txtDescuento.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        // CONSTRUIR CABECERA DE VENTA
+        private Venta CrearVenta(decimal subtotal, decimal descuento)
+        {
+            int? idCliente = null;
+
+            if (cbxCliente.SelectedIndex >= 0 &&
+                cbxCliente.SelectedValue != null)
+            {
+                idCliente = Convert.ToInt32(
+                    cbxCliente.SelectedValue);
+            }
+
+            return new Venta
+            {
+                id = ModoEdicion ? IdVentaEditar : 0,
+                idCliente = idCliente,
+                idUsuario = IdUsuarioActual,
+                fecha = dtpFecha.Value,
+                numeroDocumento = txtNumeroDocumento.Text.Trim(),
+                tipoDocumento = cbxTipoDocumento.Text,
+                subtotal = subtotal,
+                descuento = descuento,
+                total = subtotal - descuento
+            };
+        }
+
+        // CONSTRUIR DETALLES DE VENTA
+        private List<VentaDetalle> CrearDetalles()
+        {
+            List<VentaDetalle> detalles =
+                new List<VentaDetalle>();
+
+            foreach (DataGridViewRow fila in dgvDetalle.Rows)
+            {
+                detalles.Add(new VentaDetalle
+                {
+                    idProducto = Convert.ToInt32(
+                        fila.Cells["idProducto"].Value),
+
+                    cantidad = Convert.ToDecimal(
+                        fila.Cells["cantidad"].Value),
+
+                    precioUnitario = Convert.ToDecimal(
+                        fila.Cells["precio"].Value),
+
+                    descuento = Convert.ToDecimal(
+                        fila.Cells["descuento"].Value)
+                });
+            }
+
+            return detalles;
+        }
+
         // GUARDAR O ACTUALIZAR VENTA
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            decimal subtotal;
+            decimal descuento;
+
+            if (!ValidarVenta(out subtotal, out descuento))
+                return;
+
             try
             {
-                // VALIDAR USUARIO
-                if (IdUsuarioActual <= 0 ||
-                    string.IsNullOrWhiteSpace(UsuarioActual))
-                {
-                    MessageBox.Show(
-                        "Debe iniciar sesión para registrar una venta.");
-                    return;
-                }
+                Venta venta = CrearVenta(subtotal, descuento);
+                List<VentaDetalle> detalles = CrearDetalles();
 
-                // VALIDAR TIPO DE DOCUMENTO
-                if (cbxTipoDocumento.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Seleccione el tipo de documento.");
-                    cbxTipoDocumento.Focus();
-                    return;
-                }
-
-                // VALIDAR NÚMERO DE DOCUMENTO
-                if (string.IsNullOrWhiteSpace(txtNumeroDocumento.Text))
-                {
-                    MessageBox.Show("Ingrese el número de documento.");
-                    txtNumeroDocumento.Focus();
-                    return;
-                }
-
-                // VALIDAR DETALLE
-                if (dgvDetalle.Rows.Count == 0)
-                {
-                    MessageBox.Show("Agregue al menos un producto.");
-                    return;
-                }
-
-                // VALIDAR DESCUENTO GENERAL
-                decimal descuento;
-
-                if (!decimal.TryParse(
-                    txtDescuento.Text, out descuento) ||
-                    descuento < 0)
-                {
-                    MessageBox.Show(
-                        "Ingrese un descuento general válido.");
-                    txtDescuento.Focus();
-                    return;
-                }
-
-                // CALCULAR SUBTOTAL
-                decimal subtotal = 0;
-
-                foreach (DataGridViewRow fila in dgvDetalle.Rows)
-                {
-                    subtotal += Convert.ToDecimal(
-                        fila.Cells["subtotal"].Value);
-                }
-
-                if (descuento > subtotal)
-                {
-                    MessageBox.Show(
-                        "El descuento no puede superar el subtotal.");
-                    return;
-                }
-
-                // OBTENER CLIENTE
-                int? idCliente = null;
-
-                if (cbxCliente.SelectedIndex >= 0 &&
-                    cbxCliente.SelectedValue != null)
-                {
-                    idCliente = Convert.ToInt32(
-                        cbxCliente.SelectedValue);
-                }
-
-                // CREAR CABECERA DE VENTA
-                Venta venta = new Venta
-                {
-                    id = ModoEdicion ? IdVentaEditar : 0,
-                    idCliente = idCliente,
-                    idUsuario = IdUsuarioActual,
-                    fecha = dtpFecha.Value,
-                    numeroDocumento = txtNumeroDocumento.Text.Trim(),
-                    tipoDocumento = cbxTipoDocumento.Text,
-                    subtotal = subtotal,
-                    descuento = descuento,
-                    total = subtotal - descuento
-                };
-
-                // CREAR DETALLES
-                List<VentaDetalle> detalles =
-                    new List<VentaDetalle>();
-
-                foreach (DataGridViewRow fila in dgvDetalle.Rows)
-                {
-                    VentaDetalle detalle = new VentaDetalle
-                    {
-                        idProducto = Convert.ToInt32(
-                            fila.Cells["idProducto"].Value),
-
-                        cantidad = Convert.ToDecimal(
-                            fila.Cells["cantidad"].Value),
-
-                        precioUnitario = Convert.ToDecimal(
-                            fila.Cells["precio"].Value),
-
-                        descuento = Convert.ToDecimal(
-                            fila.Cells["descuento"].Value)
-                    };
-
-                    detalles.Add(detalle);
-                }
-
-                // DECIDIR ENTRE REGISTRAR Y MODIFICAR
                 if (ModoEdicion)
                 {
-                    VentaCln.modificar(
-                        venta,
-                        detalles,
-                        UsuarioActual);
-
-                    MessageBox.Show(
-                        "Venta modificada correctamente.",
-                        "RodaPro",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    ActualizarVenta(venta, detalles);
                 }
                 else
                 {
-                    long idVenta = VentaCln.registrar(
-                        venta,
-                        detalles,
-                        UsuarioActual);
-
-                    MessageBox.Show(
-                        "Venta registrada correctamente.\n" +
-                        "Número de venta: " + idVenta,
-                        "RodaPro",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    // LIMPIAR FORMULARIO
-                    dgvDetalle.Rows.Clear();
-
-                    txtNumeroDocumento.Clear();
-                    txtDescuento.Text = "0";
-                    txtDescuentoDetalle.Text = "0";
-
-                    cbxCliente.SelectedIndex = -1;
-                    cbxTipoDocumento.SelectedIndex = -1;
-                    cbxProducto.SelectedIndex = -1;
-
-                    nudCantidad.Value = 1;
-                    txtPrecio.Text = "0.00";
-
-                    dtpFecha.Value = DateTime.Now;
-
-                    CalcularTotales();
-
-                    // ACTUALIZAR STOCK DISPONIBLE
-                    CargarProductos();
+                    RegistrarVenta(venta, detalles);
                 }
             }
             catch (Exception ex)
@@ -610,24 +641,107 @@ namespace CpRodapro
             }
         }
 
-        // ABRIR LISTA DE VENTAS
+        // REGISTRAR NUEVA VENTA
+        private void RegistrarVenta(
+            Venta venta,
+            List<VentaDetalle> detalles)
+        {
+            long idVenta = VentaCln.registrar(
+                venta,
+                detalles,
+                UsuarioActual);
+
+            MessageBox.Show(
+                "Venta registrada correctamente.\n" +
+                "Número de venta: " + idVenta,
+                "RodaPro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            LimpiarFormulario();
+            CargarProductos();
+        }
+
+        // ACTUALIZAR VENTA
+        private void ActualizarVenta(
+            Venta venta,
+            List<VentaDetalle> detalles)
+        {
+            VentaCln.modificar(
+                venta,
+                detalles,
+                UsuarioActual);
+
+            MessageBox.Show(
+                "Venta modificada correctamente.",
+                "RodaPro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        // LIMPIAR FORMULARIO
+        private void LimpiarFormulario()
+        {
+            dgvDetalle.Rows.Clear();
+
+            txtNumeroDocumento.Clear();
+            txtDescuento.Text = "0";
+            txtDescuentoDetalle.Text = "0";
+
+            cbxCliente.SelectedIndex = -1;
+            cbxTipoDocumento.SelectedIndex = -1;
+            cbxProducto.SelectedIndex = -1;
+
+            nudCantidad.Value = 1;
+            txtPrecio.Text = "0.00";
+
+            dtpFecha.Value = DateTime.Now;
+
+            CalcularTotales();
+        }
+
+        // VER VENTAS REGISTRADAS
         private void btnVerVentas_Click(object sender, EventArgs e)
         {
-            using (FrmListaVentas formulario = new FrmListaVentas())
+            btnVerVentas.Enabled = false;
+
+            try
             {
-                formulario.IdUsuarioActual = IdUsuarioActual;
-                formulario.UsuarioActual = UsuarioActual;
-                formulario.ShowDialog(this);
+                int idUsuario = IdUsuarioActual;
+                string usuario = UsuarioActual;
+
+                if (CpRodaPro.Util.usuario != null)
+                {
+                    if (idUsuario <= 0)
+                        idUsuario = CpRodaPro.Util.usuario.id;
+
+                    if (string.IsNullOrWhiteSpace(usuario))
+                        usuario = CpRodaPro.Util.usuario.usuario1;
+                }
+
+                using (FrmListaVentas formulario = new FrmListaVentas())
+                {
+                    formulario.IdUsuarioActual = idUsuario;
+                    formulario.UsuarioActual = usuario;
+
+                    // FrmVenta es el propietario de FrmListaVentas.
+                    formulario.ShowDialog(this);
+                }
+            }
+            finally
+            {
+                if (!IsDisposed)
+                    btnVerVentas.Enabled = true;
             }
         }
 
         // VOLVER
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
-
-
-

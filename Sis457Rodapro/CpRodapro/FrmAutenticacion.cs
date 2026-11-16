@@ -12,10 +12,11 @@ namespace CpRodapro
         {
             InitializeComponent();
 
+            // OCULTAR CONTRASEÑA
             txtClave.UseSystemPasswordChar = true;
 
-            // EJECUTAR SOLO UNA VEZ:
-            //crearAdministrador();
+            // PERMITIR INGRESAR AL PRESIONAR ENTER
+            this.AcceptButton = btnIngresar;
         }
 
         // CREAR ADMINISTRADOR
@@ -23,7 +24,6 @@ namespace CpRodapro
         {
             using (var context = new LabRodaproEntities())
             {
-                // Verificar si ya existe el administrador
                 var existe = context.Usuario
                     .Any(x => x.usuario1 == "admin");
 
@@ -33,7 +33,6 @@ namespace CpRodapro
                     return;
                 }
 
-                // Buscar empleado Gabriel
                 var empleado = context.Empleado
                     .FirstOrDefault(x => x.id == 4);
 
@@ -43,13 +42,11 @@ namespace CpRodapro
                     return;
                 }
 
-                // Crear administrador
                 var nuevo = new Usuario
                 {
                     idEmpleado = empleado.id,
                     usuario1 = "admin",
-                    passwordHash =
-                        CadRodapro.Util.Encrypt("admin123"),
+                    passwordHash = CadRodapro.Util.Encrypt("admin123"),
                     rol = "Administrador",
                     usuarioRegistro = "admin",
                     fechaRegistro = DateTime.Now,
@@ -60,9 +57,7 @@ namespace CpRodapro
                 context.SaveChanges();
             }
 
-            MessageBox.Show(
-                "Administrador creado correctamente."
-            );
+            MessageBox.Show("Administrador creado correctamente.");
         }
 
         // INICIAR SESIÓN
@@ -71,55 +66,69 @@ namespace CpRodapro
             if (!validarCampos())
                 return;
 
-            string nombreUsuario = txtUsuario.Text.Trim();
-            string clave = txtClave.Text;
+            try
+            {
+                string nombreUsuario = txtUsuario.Text.Trim();
+                string clave = txtClave.Text;
 
-            var usuario = UsuarioCln.validar(
-                nombreUsuario,
-                clave
-            );
+                var usuario = UsuarioCln.validar(
+                    nombreUsuario,
+                    clave
+                );
 
-            if (usuario == null)
+                if (usuario == null)
+                {
+                    MessageBox.Show(
+                        "Usuario o contraseña incorrectos.",
+                        "Acceso denegado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    txtClave.Clear();
+                    txtClave.Focus();
+                    return;
+                }
+
+                if (usuario.estado != 1)
+                {
+                    MessageBox.Show(
+                        "Usuario inactivo.",
+                        "Acceso denegado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    txtClave.Clear();
+                    txtClave.Focus();
+                    return;
+                }
+
+                // GUARDAR USUARIO AUTENTICADO
+                CpRodaPro.Util.usuario = usuario;
+
+                MessageBox.Show("¡Bienvenido a RodaPro!");
+
+                FrmPrincipal principal = new FrmPrincipal();
+                principal.Show();
+
+                this.Hide();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Usuario o contraseña incorrectos."
+                    "Error al iniciar sesión: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
-                return;
             }
-
-            if (usuario.estado != 1)
-            {
-                MessageBox.Show("Usuario inactivo.");
-                return;
-            }
-
-            // Guardar usuario autenticado
-            CpRodaPro.Util.usuario = usuario;
-
-            MessageBox.Show("¡Bienvenido a RodaPro!");
-
-            FrmPrincipal principal = new FrmPrincipal();
-            principal.Show();
-
-            this.Hide();
         }
 
         // SALIR
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        // ENTER PARA INGRESAR
-        private void txtClave_KeyPress(
-            object sender,
-            KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true;
-                btnIngresar.PerformClick();
-            }
         }
 
         // CARGAR FORMULARIO
@@ -134,10 +143,10 @@ namespace CpRodapro
         // VALIDAR CAMPOS
         private bool validarCampos()
         {
-            bool esValido = true;
-
             erpUsuario.Clear();
             erpClave.Clear();
+
+            bool esValido = true;
 
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
@@ -162,6 +171,31 @@ namespace CpRodapro
             return esValido;
         }
 
+        // LIMPIAR ERROR AL HACER CLIC EN USUARIO
+        private void txtUsuario_Click(object sender, EventArgs e)
+        {
+            erpUsuario.SetError(txtUsuario, "");
+        }
+
+        // LIMPIAR ERROR AL HACER CLIC EN CLAVE
+        private void txtClave_Click(object sender, EventArgs e)
+        {
+            erpClave.SetError(txtClave, "");
+        }
+
+        // LIMPIAR ERROR AL ESCRIBIR USUARIO
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+            erpUsuario.SetError(txtUsuario, "");
+        }
+
+        // LIMPIAR ERROR AL ESCRIBIR CLAVE
+        private void txtClave_TextChanged(object sender, EventArgs e)
+        {
+            erpClave.SetError(txtClave, "");
+        }
+
+        // LIMPIAR CAMPOS
         public void limpiarCampos()
         {
             txtUsuario.Clear();
@@ -174,3 +208,4 @@ namespace CpRodapro
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using ClnRodaPro;
+﻿
+using ClnRodaPro;
 using CadRodapro;
 using System;
 using System.Linq;
@@ -13,23 +14,42 @@ namespace CpRodapro
         private bool modoEdicion = false;
 
         private const int ANCHO = 900;
-        private const int ALTO_INICIAL = 338;
+        private const int ALTO_INICIAL = 350;
         private const int ALTO_REGISTRO = 600;
 
         public FrmEmpleados()
         {
             InitializeComponent();
 
+            // ASOCIAR EVENTOS SIN DUPLICARLOS
+            Load -= FrmEmpleados_Load;
             Load += FrmEmpleados_Load;
 
+            btnNuevo.Click -= btnNuevo_Click;
             btnNuevo.Click += btnNuevo_Click;
+
+            btnGuardar.Click -= btnGuardar_Click;
             btnGuardar.Click += btnGuardar_Click;
+
+            btnModificar.Click -= btnModificar_Click;
             btnModificar.Click += btnModificar_Click;
+
+            btnEliminar.Click -= btnEliminar_Click;
             btnEliminar.Click += btnEliminar_Click;
+
+            btnCancelar.Click -= btnCancelar_Click;
             btnCancelar.Click += btnCancelar_Click;
+
+            btnVolver.Click -= btnVolver_Click;
             btnVolver.Click += btnVolver_Click;
+
+            btnBuscar.Click -= btnBuscar_Click;
             btnBuscar.Click += btnBuscar_Click;
 
+            txtParametro.KeyDown -= txtParametro_KeyDown;
+            txtParametro.KeyDown += txtParametro_KeyDown;
+
+            // CONFIGURAR DATAGRIDVIEW
             dgvListaEmpleados.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
 
@@ -40,10 +60,15 @@ namespace CpRodapro
             dgvListaEmpleados.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
 
+            dgvListaEmpleados.DataBindingComplete -=
+                dgvListaEmpleados_DataBindingComplete;
+
             dgvListaEmpleados.DataBindingComplete +=
                 dgvListaEmpleados_DataBindingComplete;
 
-            // EVENTO PARA SELECCIONAR EMPLEADO
+            dgvListaEmpleados.CellClick -=
+                dgvListaEmpleados_CellClick;
+
             dgvListaEmpleados.CellClick +=
                 dgvListaEmpleados_CellClick;
         }
@@ -51,39 +76,58 @@ namespace CpRodapro
         // CARGAR FORMULARIO
         private void FrmEmpleados_Load(object sender, EventArgs e)
         {
+            Size = new Size(ANCHO, ALTO_INICIAL);
+
             listar();
             restablecerEstado();
-
-            Size = new Size(ANCHO, ALTO_INICIAL);
         }
 
         // LISTAR EMPLEADOS
         private void listar()
         {
-            string parametro = txtParametro.Text.Trim().ToLower();
-
-            var datos = EmpleadoCln.listar();
-
-            if (!string.IsNullOrEmpty(parametro))
+            try
             {
-                datos = datos.Where(x =>
-                    (x.cedulaIdentidad ?? "").ToLower().Contains(parametro) ||
-                    (x.nombres ?? "").ToLower().Contains(parametro) ||
-                    (x.primerApellido ?? "").ToLower().Contains(parametro) ||
-                    (x.segundoApellido ?? "").ToLower().Contains(parametro) ||
-                    (x.cargo ?? "").ToLower().Contains(parametro)
-                ).ToList();
+                string parametro = txtParametro.Text.Trim();
+
+                var datos = EmpleadoCln.listar();
+
+                if (!string.IsNullOrEmpty(parametro))
+                {
+                    datos = datos.Where(x =>
+                        (x.cedulaIdentidad ?? "")
+                            .IndexOf(parametro, StringComparison.OrdinalIgnoreCase) >= 0 ||
+
+                        (x.nombres ?? "")
+                            .IndexOf(parametro, StringComparison.OrdinalIgnoreCase) >= 0 ||
+
+                        (x.primerApellido ?? "")
+                            .IndexOf(parametro, StringComparison.OrdinalIgnoreCase) >= 0 ||
+
+                        (x.segundoApellido ?? "")
+                            .IndexOf(parametro, StringComparison.OrdinalIgnoreCase) >= 0 ||
+
+                        (x.cargo ?? "")
+                            .IndexOf(parametro, StringComparison.OrdinalIgnoreCase) >= 0
+                    ).ToList();
+                }
+
+                dgvListaEmpleados.DataSource = null;
+                dgvListaEmpleados.DataSource = datos;
+
+                configurarColumnas();
+
+                dgvListaEmpleados.ClearSelection();
+
+                id = 0;
             }
-
-            dgvListaEmpleados.DataSource = null;
-            dgvListaEmpleados.DataSource = datos;
-
-            configurarColumnas();
-
-            // EVITAR SELECCIÓN AUTOMÁTICA
-            dgvListaEmpleados.ClearSelection();
-
-            id = 0;
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al listar empleados: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         // CONFIGURAR Y OCULTAR COLUMNAS
@@ -92,7 +136,6 @@ namespace CpRodapro
             foreach (DataGridViewColumn columna in dgvListaEmpleados.Columns)
             {
                 string nombre = columna.Name.ToLower();
-
                 string propiedad =
                     (columna.DataPropertyName ?? "").ToLower();
 
@@ -129,10 +172,10 @@ namespace CpRodapro
         {
             foreach (DataGridViewColumn columna in dgvListaEmpleados.Columns)
             {
-                if (columna.Name.Equals(nombre,
-                    StringComparison.OrdinalIgnoreCase) ||
-                    columna.DataPropertyName.Equals(nombre,
-                    StringComparison.OrdinalIgnoreCase))
+                if (columna.Name.Equals(
+                        nombre, StringComparison.OrdinalIgnoreCase) ||
+                    (columna.DataPropertyName ?? "").Equals(
+                        nombre, StringComparison.OrdinalIgnoreCase))
                 {
                     columna.HeaderText = encabezado;
                     break;
@@ -152,17 +195,32 @@ namespace CpRodapro
         private void dgvListaEmpleados_CellClick(
             object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var empleado =
-                    dgvListaEmpleados.Rows[e.RowIndex].DataBoundItem
-                    as Empleado;
+            if (e.RowIndex < 0)
+                return;
 
-                if (empleado != null)
-                {
-                    id = empleado.id;
-                }
+            var empleado =
+                dgvListaEmpleados.Rows[e.RowIndex].DataBoundItem as Empleado;
+
+            if (empleado != null)
+                id = empleado.id;
+        }
+
+        // OBTENER EMPLEADO SELECCIONADO
+        private Empleado obtenerSeleccionado()
+        {
+            if (dgvListaEmpleados.SelectedRows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Seleccione un empleado.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return null;
             }
+
+            return dgvListaEmpleados.SelectedRows[0].DataBoundItem
+                as Empleado;
         }
 
         // LIMPIAR FORMULARIO
@@ -182,8 +240,6 @@ namespace CpRodapro
                 DateTime.Today.AddYears(-18);
 
             dgvListaEmpleados.ClearSelection();
-
-            txtCedula.Focus();
         }
 
         // RESTABLECER ESTADO
@@ -192,23 +248,41 @@ namespace CpRodapro
             modoEdicion = false;
 
             dgvListaEmpleados.Enabled = true;
+            pnlRegistro.Enabled = true;
 
             btnNuevo.Enabled = true;
             btnModificar.Enabled = true;
             btnEliminar.Enabled = true;
 
-            pnlRegistro.Enabled = true;
+            btnGuardar.Enabled = false;
+            btnCancelar.Enabled = false;
+
+            pnlRegistro.Visible = false;
+
+            Size = new Size(ANCHO, ALTO_INICIAL);
         }
 
         // NUEVO
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            restablecerEstado();
             limpiarFormulario();
 
             modoEdicion = false;
 
             Size = new Size(ANCHO, ALTO_REGISTRO);
+
+            dgvListaEmpleados.Enabled = false;
+
+            btnNuevo.Enabled = false;
+            btnModificar.Enabled = false;
+            btnEliminar.Enabled = false;
+
+            pnlRegistro.Visible = true;
+            pnlRegistro.Enabled = true;
+            pnlRegistro.BringToFront();
+
+            btnGuardar.Enabled = true;
+            btnCancelar.Enabled = true;
 
             txtCedula.Enabled = true;
             txtNombres.Enabled = true;
@@ -238,6 +312,7 @@ namespace CpRodapro
             if (!long.TryParse(txtCelular.Text.Trim(), out long celular))
             {
                 MessageBox.Show("Ingrese un número de celular válido.");
+                txtCelular.Focus();
                 return;
             }
 
@@ -245,6 +320,7 @@ namespace CpRodapro
             {
                 MessageBox.Show(
                     "La cédula no puede superar los 12 caracteres.");
+                txtCedula.Focus();
                 return;
             }
 
@@ -252,10 +328,11 @@ namespace CpRodapro
             {
                 MessageBox.Show(
                     "La fecha de nacimiento debe ser anterior a hoy.");
+                dtpFechaNacimiento.Focus();
                 return;
             }
 
-            var empleado = new Empleado();
+            Empleado empleado = new Empleado();
 
             empleado.id = id;
             empleado.cedulaIdentidad = txtCedula.Text.Trim();
@@ -288,24 +365,25 @@ namespace CpRodapro
                     EmpleadoCln.actualizar(empleado, usuarioRegistro);
 
                     MessageBox.Show(
-                        "Empleado modificado correctamente.");
+                        "Empleado modificado correctamente.",
+                        "Confirmación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
                 else
                 {
                     EmpleadoCln.insertar(empleado, usuarioRegistro);
 
                     MessageBox.Show(
-                        "Empleado registrado correctamente.");
+                        "Empleado registrado correctamente.",
+                        "Confirmación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
 
                 listar();
-
-                restablecerEstado();
                 limpiarFormulario();
-
-                Size = new Size(ANCHO, ALTO_INICIAL);
-
-                pnlRegistro.Enabled = true;
+                restablecerEstado();
             }
             catch (Exception ex)
             {
@@ -325,15 +403,7 @@ namespace CpRodapro
         // MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (dgvListaEmpleados.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un empleado.");
-                return;
-            }
-
-            var empleado =
-                dgvListaEmpleados.SelectedRows[0].DataBoundItem
-                as Empleado;
+            Empleado empleado = obtenerSeleccionado();
 
             if (empleado == null)
                 return;
@@ -344,6 +414,10 @@ namespace CpRodapro
             Size = new Size(ANCHO, ALTO_REGISTRO);
 
             dgvListaEmpleados.Enabled = false;
+
+            pnlRegistro.Visible = true;
+            pnlRegistro.Enabled = true;
+            pnlRegistro.BringToFront();
 
             txtCedula.Text = empleado.cedulaIdentidad;
             txtNombres.Text = empleado.nombres;
@@ -367,6 +441,7 @@ namespace CpRodapro
             txtCargo.Enabled = true;
 
             btnGuardar.Enabled = true;
+            btnCancelar.Enabled = true;
 
             txtCedula.Focus();
         }
@@ -374,55 +449,57 @@ namespace CpRodapro
         // ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            // VERIFICAR SELECCIÓN REAL
-            if (dgvListaEmpleados.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un empleado de la lista.");
-                return;
-            }
-
-            var empleado =
-                dgvListaEmpleados.SelectedRows[0].DataBoundItem
-                as Empleado;
+            Empleado empleado = obtenerSeleccionado();
 
             if (empleado == null)
                 return;
 
-            id = empleado.id;
-
             DialogResult respuesta = MessageBox.Show(
-                "¿Está seguro de eliminar este empleado?",
+                "¿Está seguro de eliminar al empleado " +
+                empleado.nombres + " " + empleado.primerApellido + "?",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+                MessageBoxIcon.Question);
 
-            if (respuesta == DialogResult.Yes)
+            if (respuesta != DialogResult.Yes)
+                return;
+
+            try
             {
                 string usuarioRegistro =
                     CpRodaPro.Util.usuario?.usuario1 ?? "admin";
 
-                try
-                {
-                    EmpleadoCln.eliminar(id, usuarioRegistro);
+                int resultado =
+                    EmpleadoCln.eliminar(empleado.id, usuarioRegistro);
 
-                    MessageBox.Show(
-                        "Empleado eliminado correctamente.");
-
-                    listar();
-                    restablecerEstado();
-                    limpiarFormulario();
-
-                    Size = new Size(ANCHO, ALTO_INICIAL);
-                }
-                catch (Exception ex)
+                if (resultado == 0)
                 {
                     MessageBox.Show(
-                        "Error al eliminar: " + ex.Message,
-                        "Error",
+                        "No se encontró el empleado.",
+                        "Aviso",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                        MessageBoxIcon.Warning);
+
+                    return;
                 }
+
+                MessageBox.Show(
+                    "Empleado eliminado correctamente.",
+                    "Confirmación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                listar();
+                limpiarFormulario();
+                restablecerEstado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al eliminar el empleado: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -432,22 +509,29 @@ namespace CpRodapro
             listar();
         }
 
+        // BUSCAR AL PRESIONAR ENTER
+        private void txtParametro_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+
+                btnBuscar.PerformClick();
+            }
+        }
+
         // CANCELAR
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            restablecerEstado();
             limpiarFormulario();
-
-            Size = new Size(ANCHO, ALTO_INICIAL);
-
-            pnlRegistro.Enabled = true;
+            restablecerEstado();
         }
 
         // VOLVER
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
-

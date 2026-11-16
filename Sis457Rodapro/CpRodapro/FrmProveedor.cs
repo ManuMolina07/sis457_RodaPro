@@ -2,7 +2,6 @@
 using ClnRodaPro;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace CpRodapro
@@ -20,11 +19,43 @@ namespace CpRodapro
         {
             InitializeComponent();
 
-            // Estado inicial antes de mostrar el formulario
+            // ASOCIAR EVENTOS
+            Load -= FrmProveedor_Load;
+            Load += FrmProveedor_Load;
+
+            btnNuevo.Click -= btnNuevo_Click;
+            btnNuevo.Click += btnNuevo_Click;
+
+            btnModificar.Click -= btnModificar_Click;
+            btnModificar.Click += btnModificar_Click;
+
+            btnGuardar.Click -= btnGuardar_Click;
+            btnGuardar.Click += btnGuardar_Click;
+
+            btnCancelar.Click -= btnCancelar_Click;
+            btnCancelar.Click += btnCancelar_Click;
+
+            btnEliminar.Click -= btnEliminar_Click;
+            btnEliminar.Click += btnEliminar_Click;
+
+            btnBuscar.Click -= btnBuscar_Click;
+            btnBuscar.Click += btnBuscar_Click;
+
+            btnVolver.Click -= btnVolver_Click;
+            btnVolver.Click += btnVolver_Click;
+
+            txtParametro.KeyDown -= txtParametro_KeyDown;
+            txtParametro.KeyDown += txtParametro_KeyDown;
+
+            dgvLista.CellClick -= dgvLista_CellClick;
+            dgvLista.CellClick += dgvLista_CellClick;
+
+            // ESTADO INICIAL
             pnlRegistro.Visible = false;
             Size = new Size(ANCHO, ALTO_INICIAL);
         }
 
+        // CARGAR FORMULARIO
         private void FrmProveedor_Load(object sender, EventArgs e)
         {
             Size = new Size(ANCHO, ALTO_INICIAL);
@@ -41,23 +72,68 @@ namespace CpRodapro
         // LISTAR Y BUSCAR
         private void cargarLista(string parametro = "")
         {
-            dgvLista.DataSource = ProveedorCln.listar(parametro);
+            try
+            {
+                dgvLista.DataSource = null;
+                dgvLista.DataSource = ProveedorCln.listar(parametro);
 
-            if (dgvLista.Columns.Contains("id"))
-                dgvLista.Columns["id"].Visible = false;
+                if (dgvLista.Columns.Contains("id"))
+                    dgvLista.Columns["id"].Visible = false;
 
-            if (dgvLista.Columns.Contains("estado"))
-                dgvLista.Columns["estado"].Visible = false;
+                if (dgvLista.Columns.Contains("estado"))
+                    dgvLista.Columns["estado"].Visible = false;
 
-            dgvLista.Columns["nombreEmpresa"].HeaderText = "Empresa";
-            dgvLista.Columns["nit"].HeaderText = "NIT";
-            dgvLista.Columns["telefono"].HeaderText = "Teléfono";
-            dgvLista.Columns["direccion"].HeaderText = "Dirección";
-            dgvLista.Columns["email"].HeaderText = "Correo";
-            dgvLista.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
-            dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
+                if (dgvLista.Columns.Contains("nombreEmpresa"))
+                    dgvLista.Columns["nombreEmpresa"].HeaderText = "Empresa";
 
-            dgvLista.ClearSelection();
+                if (dgvLista.Columns.Contains("nit"))
+                    dgvLista.Columns["nit"].HeaderText = "NIT";
+
+                if (dgvLista.Columns.Contains("telefono"))
+                    dgvLista.Columns["telefono"].HeaderText = "Teléfono";
+
+                if (dgvLista.Columns.Contains("direccion"))
+                    dgvLista.Columns["direccion"].HeaderText = "Dirección";
+
+                if (dgvLista.Columns.Contains("email"))
+                    dgvLista.Columns["email"].HeaderText = "Correo";
+
+                if (dgvLista.Columns.Contains("usuarioRegistro"))
+                    dgvLista.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
+
+                if (dgvLista.Columns.Contains("fechaRegistro"))
+                {
+                    dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
+                    dgvLista.Columns["fechaRegistro"].DefaultCellStyle.Format =
+                        "dd/MM/yyyy HH:mm";
+                }
+
+                if (dgvLista.Columns.Contains("Compra"))
+                    dgvLista.Columns["Compra"].Visible = false;
+
+                dgvLista.AutoSizeColumnsMode =
+                    DataGridViewAutoSizeColumnsMode.Fill;
+
+                dgvLista.ReadOnly = true;
+                dgvLista.AllowUserToAddRows = false;
+                dgvLista.SelectionMode =
+                    DataGridViewSelectionMode.FullRowSelect;
+                dgvLista.MultiSelect = false;
+                dgvLista.RowHeadersVisible = false;
+
+                dgvLista.ClearSelection();
+
+                id = 0;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar los proveedores: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         // LIMPIAR FORMULARIO
@@ -74,7 +150,7 @@ namespace CpRodapro
             dgvLista.ClearSelection();
         }
 
-        // ESTADO INICIAL
+        // RESTABLECER ESTADO
         private void restablecerEstado()
         {
             modoEdicion = false;
@@ -93,7 +169,7 @@ namespace CpRodapro
             btnCancelar.Enabled = false;
         }
 
-        // ACTIVAR REGISTRO
+        // HABILITAR REGISTRO
         private void habilitarRegistro()
         {
             Size = new Size(ANCHO, ALTO_REGISTRO);
@@ -185,6 +261,7 @@ namespace CpRodapro
             try
             {
                 Proveedor proveedor = asignarDatos();
+
                 int resultado;
 
                 if (modoEdicion)
@@ -196,6 +273,7 @@ namespace CpRodapro
                     if (resultado == -1)
                     {
                         MessageBox.Show("El NIT ya pertenece a otro proveedor.");
+                        txtNit.Focus();
                         return;
                     }
 
@@ -214,6 +292,13 @@ namespace CpRodapro
                     if (resultado == -1)
                     {
                         MessageBox.Show("El NIT ya está registrado.");
+                        txtNit.Focus();
+                        return;
+                    }
+
+                    if (resultado == 0)
+                    {
+                        MessageBox.Show("No se pudo registrar el proveedor.");
                         return;
                     }
 
@@ -221,7 +306,9 @@ namespace CpRodapro
                 }
 
                 cargarLista();
+
                 limpiarFormulario();
+
                 restablecerEstado();
             }
             catch (Exception ex)
@@ -230,8 +317,7 @@ namespace CpRodapro
                     "Error al guardar proveedor: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -239,6 +325,7 @@ namespace CpRodapro
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limpiarFormulario();
+
             restablecerEstado();
         }
 
@@ -255,30 +342,36 @@ namespace CpRodapro
                 "¿Está seguro de eliminar este proveedor?",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+                MessageBoxIcon.Question);
 
-            if (respuesta == DialogResult.Yes)
+            if (respuesta != DialogResult.Yes)
+                return;
+
+            try
             {
-                try
+                int resultado = ProveedorCln.eliminar(id, "admin");
+
+                if (resultado == 0)
                 {
-                    int resultado = ProveedorCln.eliminar(id, "admin");
-
-                    if (resultado == 0)
-                    {
-                        MessageBox.Show("No se encontró el proveedor.");
-                        return;
-                    }
-
-                    MessageBox.Show("Proveedor eliminado correctamente.");
-
-                    cargarLista();
-                    limpiarFormulario();
+                    MessageBox.Show("No se encontró el proveedor.");
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al eliminar: " + ex.Message);
-                }
+
+                MessageBox.Show("Proveedor eliminado correctamente.");
+
+                cargarLista();
+
+                limpiarFormulario();
+
+                restablecerEstado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al eliminar proveedor: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -288,16 +381,17 @@ namespace CpRodapro
             cargarLista(txtParametro.Text.Trim());
         }
 
-        //ENTER
+        // BUSCAR AL PRESIONAR ENTER
         private void txtParametro_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                e.Handled = true;
+
                 btnBuscar.PerformClick();
             }
         }
-
 
         // SELECCIONAR PROVEEDOR
         private void dgvLista_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -309,11 +403,20 @@ namespace CpRodapro
 
             id = Convert.ToInt32(fila.Cells["id"].Value);
 
-            txtNombre.Text = Convert.ToString(fila.Cells["nombreEmpresa"].Value);
-            txtNit.Text = Convert.ToString(fila.Cells["nit"].Value);
-            txtTelefono.Text = Convert.ToString(fila.Cells["telefono"].Value);
-            txtDireccion.Text = Convert.ToString(fila.Cells["direccion"].Value);
-            txtCorreo.Text = Convert.ToString(fila.Cells["email"].Value);
+            txtNombre.Text =
+                Convert.ToString(fila.Cells["nombreEmpresa"].Value);
+
+            txtNit.Text =
+                Convert.ToString(fila.Cells["nit"].Value);
+
+            txtTelefono.Text =
+                Convert.ToString(fila.Cells["telefono"].Value);
+
+            txtDireccion.Text =
+                Convert.ToString(fila.Cells["direccion"].Value);
+
+            txtCorreo.Text =
+                Convert.ToString(fila.Cells["email"].Value);
         }
 
         // VOLVER

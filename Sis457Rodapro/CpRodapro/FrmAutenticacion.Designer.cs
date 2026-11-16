@@ -52,7 +52,6 @@
             this.txtClave.Name = "txtClave";
             this.txtClave.Size = new System.Drawing.Size(165, 20);
             this.txtClave.TabIndex = 48;
-            this.txtClave.Text = "Clave";
             // 
             // txtUsuario
             // 
@@ -60,7 +59,6 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(165, 20);
             this.txtUsuario.TabIndex = 46;
-            this.txtUsuario.Text = "Usuario";
             // 
             // lblTitulo
             // 
@@ -78,7 +76,6 @@
             // 
             this.btnSalir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Image = global::CpRodapro.Properties.Resources.cerrar_sesion__1_;
             this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

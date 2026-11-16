@@ -19,12 +19,45 @@ namespace CpRodaPro
         public FrmCliente()
         {
             InitializeComponent();
+
+            // Asociar eventos
+            Load -= FrmCliente_Load;
+            Load += FrmCliente_Load;
+
+            btnNuevo.Click -= btnNuevo_Click;
+            btnNuevo.Click += btnNuevo_Click;
+
+            btnModificar.Click -= btnModificar_Click;
+            btnModificar.Click += btnModificar_Click;
+
+            btnGuardar.Click -= btnGuardar_Click;
+            btnGuardar.Click += btnGuardar_Click;
+
+            btnCancelar.Click -= btnCancelar_Click;
+            btnCancelar.Click += btnCancelar_Click;
+
+            btnEliminar.Click -= btnEliminar_Click;
+            btnEliminar.Click += btnEliminar_Click;
+
+            btnBuscar.Click -= btnBuscar_Click;
+            btnBuscar.Click += btnBuscar_Click;
+
+            btnVolver.Click -= btnVolver_Click;
+            btnVolver.Click += btnVolver_Click;
+
+            txtParametro.KeyDown -= txtParametro_KeyDown;
+            txtParametro.KeyDown += txtParametro_KeyDown;
+
+            dgvLista.CellClick -= dgvLista_CellClick;
+            dgvLista.CellClick += dgvLista_CellClick;
         }
 
         private void FrmCliente_Load(object sender, EventArgs e)
         {
             Size = new Size(ANCHO, ALTO_INICIAL);
+
             pnlRegistro.Visible = false;
+
             cargarLista();
             limpiarFormulario();
             restablecerEstado();
@@ -32,23 +65,35 @@ namespace CpRodaPro
 
         private void cargarLista(string parametro = "")
         {
-            dgvLista.DataSource = ClienteCln.listar(parametro);
+            try
+            {
+                dgvLista.DataSource = ClienteCln.listar(parametro);
 
-            if (dgvLista.Columns.Contains("id"))
-                dgvLista.Columns["id"].Visible = false;
+                if (dgvLista.Columns.Contains("id"))
+                    dgvLista.Columns["id"].Visible = false;
 
-            if (dgvLista.Columns.Contains("estado"))
-                dgvLista.Columns["estado"].Visible = false;
+                if (dgvLista.Columns.Contains("estado"))
+                    dgvLista.Columns["estado"].Visible = false;
 
-            dgvLista.Columns["nombre"].HeaderText = "Nombre";
-            dgvLista.Columns["apellido"].HeaderText = "Apellido";
-            dgvLista.Columns["ciNit"].HeaderText = "CI / NIT";
-            dgvLista.Columns["telefono"].HeaderText = "Teléfono";
-            dgvLista.Columns["direccion"].HeaderText = "Dirección";
-            dgvLista.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
-            dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
+                dgvLista.Columns["nombre"].HeaderText = "Nombre";
+                dgvLista.Columns["apellido"].HeaderText = "Apellido";
+                dgvLista.Columns["ciNit"].HeaderText = "CI / NIT";
+                dgvLista.Columns["telefono"].HeaderText = "Teléfono";
+                dgvLista.Columns["direccion"].HeaderText = "Dirección";
+                dgvLista.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
+                dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
 
-            dgvLista.ClearSelection();
+                dgvLista.ClearSelection();
+                id = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar la lista de clientes: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void limpiarFormulario()
@@ -128,65 +173,76 @@ namespace CpRodaPro
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            try
             {
-                MessageBox.Show("Ingrese el nombre del cliente.");
-                txtNombre.Focus();
-                return;
+                if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    MessageBox.Show("Ingrese el nombre del cliente.");
+                    txtNombre.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtApellido.Text))
+                {
+                    MessageBox.Show("Ingrese el apellido del cliente.");
+                    txtApellido.Focus();
+                    return;
+                }
+
+                var cliente = new Cliente
+                {
+                    nombre = txtNombre.Text.Trim(),
+                    apellido = txtApellido.Text.Trim(),
+                    ciNit = string.IsNullOrWhiteSpace(txtCiNit.Text)
+                        ? null : txtCiNit.Text.Trim(),
+                    telefono = string.IsNullOrWhiteSpace(txtTelefono.Text)
+                        ? null : txtTelefono.Text.Trim(),
+                    direccion = string.IsNullOrWhiteSpace(txtDireccion.Text)
+                        ? null : txtDireccion.Text.Trim()
+                };
+
+                int resultado;
+
+                if (modoEdicion)
+                {
+                    cliente.id = id;
+                    resultado = ClienteCln.modificar(cliente);
+                }
+                else
+                {
+                    resultado = ClienteCln.crear(cliente);
+                }
+
+                if (resultado == -1)
+                {
+                    MessageBox.Show("El CI / NIT ya se encuentra registrado.");
+                    txtCiNit.Focus();
+                    return;
+                }
+
+                if (resultado == 0)
+                {
+                    MessageBox.Show("No se encontró el cliente.");
+                    return;
+                }
+
+                MessageBox.Show(
+                    modoEdicion
+                        ? "Cliente modificado correctamente."
+                        : "Cliente registrado correctamente.");
+
+                cargarLista();
+                limpiarFormulario();
+                restablecerEstado();
             }
-
-            if (string.IsNullOrWhiteSpace(txtApellido.Text))
+            catch (Exception ex)
             {
-                MessageBox.Show("Ingrese el apellido del cliente.");
-                txtApellido.Focus();
-                return;
+                MessageBox.Show(
+                    "Error al guardar el cliente: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-
-            var cliente = new Cliente
-            {
-                nombre = txtNombre.Text.Trim(),
-                apellido = txtApellido.Text.Trim(),
-                ciNit = string.IsNullOrWhiteSpace(txtCiNit.Text)
-                    ? null : txtCiNit.Text.Trim(),
-                telefono = string.IsNullOrWhiteSpace(txtTelefono.Text)
-                    ? null : txtTelefono.Text.Trim(),
-                direccion = string.IsNullOrWhiteSpace(txtDireccion.Text)
-                    ? null : txtDireccion.Text.Trim()
-            };
-
-            int resultado;
-
-            if (modoEdicion)
-            {
-                cliente.id = id;
-                resultado = ClienteCln.modificar(cliente);
-            }
-            else
-            {
-                resultado = ClienteCln.crear(cliente);
-            }
-
-            if (resultado == -1)
-            {
-                MessageBox.Show("El CI / NIT ya se encuentra registrado.");
-                txtCiNit.Focus();
-                return;
-            }
-
-            if (resultado == 0)
-            {
-                MessageBox.Show("No se encontró el cliente.");
-                return;
-            }
-
-            MessageBox.Show(
-                modoEdicion
-                    ? "Cliente modificado correctamente."
-                    : "Cliente registrado correctamente.");
-
-            cargarLista();
-            limpiarFormulario();
-            restablecerEstado();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -211,19 +267,30 @@ namespace CpRodaPro
 
             if (respuesta == DialogResult.Yes)
             {
-                int resultado = ClienteCln.eliminar(id, "admin");
-
-                if (resultado > 0)
+                try
                 {
-                    MessageBox.Show("Cliente eliminado correctamente.");
+                    int resultado = ClienteCln.eliminar(id, "admin");
 
-                    cargarLista();
-                    limpiarFormulario();
-                    restablecerEstado();
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("Cliente eliminado correctamente.");
+
+                        cargarLista();
+                        limpiarFormulario();
+                        restablecerEstado();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el cliente.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo eliminar el cliente.");
+                    MessageBox.Show(
+                        "Error al eliminar el cliente: " + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
         }
@@ -238,6 +305,8 @@ namespace CpRodaPro
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                e.Handled = true;
+
                 btnBuscar.PerformClick();
             }
         }
